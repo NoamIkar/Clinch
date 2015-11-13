@@ -1,0 +1,52 @@
+<ion-view title="Sign Up">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="card">
+            <div class="item item-divider">
+Please Register
+            </div>
+            <div class="item item-text-wrap">
+Welcome to Clinch !                <br>
+Please fill the following fields:
+                <br>
+
+            </div>
+            <div class="list item">
+                <label class="item item-input">
+                    <i class="icon ion-android-person padding-right"><!--img src="img/User_id.png" class="small-menu-button-image"--></i>
+                    <input type="text" placeholder="Pick up a user name" ng-model="userDetails.uname">
+                </label>
+                <label class="item item-input">
+                    <i class="icon ion-ios-email-outline  padding-right"><!--img src="img/E-mail.png" class="small-menu-button-image"--></i>
+                    <input type="text" placeholder="Email"  ng-model="userDetails.email">
+                </label>
+                <label class="item item-input">
+                    <i class="icon ion-locked padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
+                    <input type="password" placeholder="Password" ng-model="userDetails.password">
+                </label>
+                <label class="item item-input">
+                    <i class="icon ion-home padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
+                    <input type="text" placeholder="Business Name" ng-model="userDetails.businessName">
+                </label>
+            </div>
+        </div>
+        <div class="item">
+            <button class="button button-positive center-button" ng-click="signUp()">
+                Register me
+            </button>
+            <div ng-show="showError">
+                {{errorMesage}}
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

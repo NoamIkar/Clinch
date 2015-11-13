@@ -1,0 +1,45 @@
+<ion-header-bar class="bar  bar-light" animation="slide-left-right" align-title="center">
+    <h1 class="title">
+        אפשרויות נוספות
+    </h1>
+</ion-header-bar>
+
+<ion-content>
+    <ul class="list rtl" ng-controller = "settingsController">
+
+        <li class="item rtl"  ng-show="isConnected">
+            <a menu-close ng-click="toggleListCards()">
+                <div ng-show="showList">
+עבור לתצוגת כרטיסים
+                </div>
+                <div ng-hide="showList">
+עבור לתצוגת רשימה
+                </div>
+            </a>
+        </li>
+        <li class="item rtl" ng-show="isConnected">
+            <a menu-close ng-click="goSettingsPage()">
+            הגדרות
+                </a>
+        </li>
+        <li class="item rtl">
+            <a menu-close ng-click="watchVideoAgain()">
+                צפה שוב בהקדמה
+            </a>
+        </li>
+        <li  class="item rtl" ng-show="isConnected">
+            <a  menu-close ng-click="logout()">
+                <div >
+            התנתק
+                    </div>
+                </a>
+        </li>
+        <li class="item rtl">
+            <a ng-click="leave()">
+                צא מהאפליקציה
+            </a>
+        </li>
+
+
+    </ul>
+</ion-content>

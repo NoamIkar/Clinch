@@ -1,0 +1,29 @@
+<ion-view title="Clinches">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
+        <ion-list can-swipe="false">
+                <ion-item class="change-item" ng-repeat ="clinch in clinches track by $index" href="#/ltr/clinches/{{clinch.$index}}">
+                    <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-left">
+                    <!--<img ng-src ="img\logo.png" class="clinch-middle-logo">-->
+                    <!--<a class="ion-arrow-right-c">-->
+                    <img ng-if="clinch.fromAllProfessions == false" ng-src ="img\professions\{{clinch.professionImage}}" class="user-image">
+                    <label ng-if="clinch.fromAllProfessions == true" class="user-image">All</label>
+                    <div class="item-middle">
+                        <h2>{{clinch.ruleTitle}}</h2>
+                        <!--<span>Partner with: {{clinch.partnerName}}</span>-->
+                    </div>                  
+                </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

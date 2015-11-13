@@ -1,0 +1,34 @@
+<div class="list card">
+    <div class="item item-image" style="width: 50%; height: 50%;margin:auto">
+        <img src="img\round_image.png">
+    </div>
+</div>
+
+
+<ul class="list" ng-controller="clinchMenuController">
+    <li class="item"   ng-show="isConnected">
+        <a menu-close ng-click="goClinches()">
+            צפה בקלינצ'ים
+        </a>
+    </li>
+    <li class="item"  ng-show="isConnected">
+        <a menu-close ng-click="goMyClinches()">
+            הקלינצ'ים שביקשתי
+        </a>
+    </li>
+
+    <li class="item"  ng-show="isConnected">
+        <a menu-close ng-click="goMyRequestedClinches()">
+            קלינצ'ים שבקשו ממני
+        </a>
+    </li>
+
+    <li class="item"  ng-show="isConnected">
+        <a menu-close ng-click="goActiveClinches()">
+            קלינצ'ים פעילים
+        </a>
+    </li>
+    <li class="item" ng-show="isConnected">
+הפרופיל שלי
+    </li>
+</ul>

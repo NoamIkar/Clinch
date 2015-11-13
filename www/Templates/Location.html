@@ -1,0 +1,36 @@
+<ion-view title="My Location">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+
+        <div class="item">
+            And one last question please:<br>
+            Where is your business operating from ?
+            <br>
+        </div>
+        <label class="item item-input">
+            <i>
+                <img src="img/icon-world.png" class="small-menu-button-image"/>
+            </i>
+            <input id="address" type="text" placeholder="Enter Your Business Location Address" ng-click="codeAddess()">
+        </label>
+        
+
+        <div id="map" class="item static-map" style="height:300px;" data-tap-disabled="true"></div>
+
+        <div class="item">
+            <button class="button button-positive center-button" ng-click="saveLocation()">
+            <!--<button class="button button-positive center-button" ng-click="goClinches()">-->
+                Select
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
