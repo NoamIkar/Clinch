@@ -1,0 +1,57 @@
+<ion-view title="המקצוע שלי">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+
+        <div class="card">
+            <div class="item item-divider rtl">
+                עיסוק
+            </div>
+            <div class="item  item-text-wrap rtl">
+                לפני שתוכל ליצור קלינצ'ים, עלינו לשאול אותך שתי שאלות:
+                <br>
+                מהו תחום העיסוק שלך ? במה עוסק העסק שלך ?
+                <br>
+                אנא בחר את הקרוב ביותר לתחום העיסוק שלך:
+            </div>
+
+            <label class="item item-input rtl">
+                <i class="icon"><img src="img/User_id.png" class="small-menu-button-image rtl"></i>
+                <input type="text" class="rtl" placeholder="עיסוק" ng-model="searchText.name">
+            </label>
+
+            <div class="item item-list rtl">
+                <div class="item item-divider"
+                     ng-repeat="profession in professions | filter: filterFunction | orderBy: 'ProfessionName' ">
+                    <a ng-click="setSearchString(profession.ProfessionName, profession)">
+                        {{profession.ProfessionName}}</a>
+                </div>
+            </div>
+
+
+            <ion-slide-box show-pager="false"
+                           ng-repeat="profession in professions| filter: filterFunction | orderBy: 'ProfessionName'">
+                <ion-slide>
+                    <a ng-click="setSearchString(profession.ProfessionName, profession)"> <img
+                            ng-src="img/professions/{{profession.imageFileName}}" class="clinch-image"></a>
+                </ion-slide>
+
+            </ion-slide-box>
+        </div>
+        <div class="item">
+            <button class="button button-positive center-button" ng-click="confirm()">
+                בחר
+            </button>
+        </div>
+
+
+    </ion-content>
+</ion-view>

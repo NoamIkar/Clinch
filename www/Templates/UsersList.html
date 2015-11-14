@@ -1,0 +1,31 @@
+<ion-view title="Select Partner">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+   
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
+         <div align="center" ng-if="selectedClinch.fromAllProfessions == false" class="item item-text-wrap padding">
+            <!--You can clinch with: {{clinch.partnerName}}-->
+            <label>Listing all {{selectedClinch.professionName}} around you</label><br>
+            <img ng-src ="img\professions\{{selectedClinch.professionImage}}" class="clinch-middle-logo">
+        </div>
+        <ion-list can-swipe="false">
+                <ion-item ng-repeat ="user in userListByClinch" ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">
+                    <div>
+                        <h2>Partner with: {{user.fromUserBusinessName}}</h2>
+                        {{user.kilometersTo}}KM from you
+                        <!--<span>Partner with: {{clinch.partnerName}}</span>-->
+                    </div>                  
+                </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

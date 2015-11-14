@@ -1,0 +1,235 @@
+/**
+ * Created by Yuval on 17/03/2015.
+ */
+
+
+
+var clinchModule = angular.module('globalsModule', []);
+
+clinchModule.factory('globalsService', function (langService) {
+
+    var theService = {};
+    theService.clinchDisplayState = "cards";
+    theService.professionMap = [];
+    theService.professionMapArray = [];
+    theService.clinchTypeMap = [];
+    theService.clinchTypeMapArray = [];
+    theService.errorMessagesMap = [];
+    theService.toUser = {}
+
+    theService.getToUser = function()
+    {
+        return this.toUser;
+    }
+
+    theService.getClinchDisplayState = function()
+    {
+        return this.clinchDisplayState;
+    }
+
+    theService.setClinchDisplayState = function(state)
+    {
+        this.clinchDisplayState = state;
+    }
+
+    theService.init = function(){
+        theService.fetchProfessions();
+        theService.fetchClinchTypes();
+        theService.fetchToUser();
+    }
+
+    theService.getProfession = function(professionId)
+    {
+        //console.log('In globalsService.getProfession- Enter. professionId='+professionId);
+        return theService.professionMap[professionId];        
+        
+        /*if(theService.professionMap.length == 0 ){
+            theService.fetchProfessions().then(function(results){
+                var object = theService.professionMap[professionId];
+                console.log('In globalsService.getProfession- returning='+object.professionName+' and '+object.imageFileName);
+            }, function(error){
+                console.log('In globalsService.getProfession- Got Error:'+error);
+            });                
+        }else{
+                var object = theService.professionMap[professionId];
+                console.log('In globalsService.getProfession- returning='+object.professionName+' and '+object.imageFileName);
+        }
+        console.log('In globalsService.getProfession- returning='+object.professionName+' and '+object.imageFileName);
+        return object;*/
+    }
+
+    theService.getAllProfessions = function()
+    {
+        //console.log('In globalsService.getAllProfessions- Enter.');
+        return theService.professionMapArray;       
+        
+    }
+
+    theService.fetchProfessions = function()
+    {
+        //console.log('In globalsService.fetchProfessions- Enter.');        
+        var ProfessionClass = Parse.Object.extend("Profession");
+        var query = new Parse.Query(ProfessionClass);
+        //query.equalTo("playerName", "Dan Stemkoski");
+        return query.find({
+          success: function(results) {            
+            //alert("Successfully retrieved " + results.length + " scores.");
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                theService.professionMap[object.id] = object;
+                //theService.professionMap[object.id].id = object.id;
+                //theService.professionMap[object.id].professionName = object.get('ProfessionName');
+                //theService.professionMap[object.id].imageFileName  = object.get('imageFileName');
+
+                theService.professionMapArray[i] = {};
+                theService.professionMapArray[i].id = object.id;
+                theService.professionMapArray[i].professionName = object.get('ProfessionName');
+                theService.professionMapArray[i].imageFileName  = object.get('imageFileName');
+            }
+            var successful = new Parse.Promise();
+            successful.resolve(results);
+            //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');            
+            return successful;
+          },
+          error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            var failed = new Parse.Promise();
+            failed.reject(error); 
+            return failed;
+          }
+        });//end of find
+    }
+
+    theService.fetchToUser = function()
+    {
+        //console.log('In globalsService.fetchProfessions- Enter.');        
+        var userQuery = new Parse.Query(Parse.User);
+        //userQuery.equalTo('objectId',Parse.User.current().id);
+        userQuery.include('Profession');
+        userQuery.get(Parse.User.current().id, {
+            success: function(user) {
+                // The object was retrieved successfully.
+                //var toUserId = user.id;
+                //var toUserProfession = user.get('Profession');
+                //var toUserEmail = user.get('email');
+                //var toUserBusinessName = user.get('BusinessName');
+                //var toUserLocation = user.get('location');
+                theService.toUser = user;
+                var successful = new Parse.Promise();
+                successful.resolve(user);
+                //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');            
+                return successful;
+            },
+            error: function(user, error) {
+                // The object was not retrieved successfully.
+                // error is a Parse.Error with an error code and message.
+                var failed = new Parse.Promise();
+                failed.reject(error); 
+                return failed;
+            }
+        });//end of get
+    }
+
+    theService.getClinchType = function(clinchTypeId)
+    {
+        //console.log('In globalsService.getClinchType- Enter. clinchTypeId='+clinchTypeId);
+        return theService.clinchTypeMap[clinchTypeId];        
+    }
+
+    theService.getAllClinchTypes = function()
+    {
+        //console.log('In globalsService.getAllClinchTypes- Enter.');
+        return theService.clinchTypeMapArray;        
+    }
+
+    theService.fetchClinchTypes = function()
+    {
+        //console.log('In globalsService.fetchClinchTypes- Enter.');        
+        var ClinchTypeClass = Parse.Object.extend("ClinchType");
+        var query = new Parse.Query(ClinchTypeClass);
+        //query.equalTo("playerName", "Dan Stemkoski");
+        return query.find({
+          success: function(results) {            
+            //alert("Successfully retrieved " + results.length + " scores.");
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                theService.clinchTypeMap[object.id] = {};                
+                theService.clinchTypeMap[object.id] = object;
+                //theService.clinchTypeMap[object.id].name = object.get('Name');
+                //theService.clinchTypeMap[object.id].title  = object.get('Title');
+                //theService.clinchTypeMap[object.id].imageName  = object.get('ImageName');
+                //theService.clinchTypeMap[object.id].longDescription  = object.get('LongDescription');
+                //theService.clinchTypeMap[object.id].shortDescription  = object.get('ShortDescription');
+
+                theService.clinchTypeMapArray[i] = {};
+                theService.clinchTypeMapArray[i].id = object.id;
+                theService.clinchTypeMapArray[i].name = object.get('Name');
+                theService.clinchTypeMapArray[i].title  = object.get('Title');
+                theService.clinchTypeMapArray[i].imageName  = object.get('ImageName');
+                theService.clinchTypeMapArray[i].longDescription  = object.get('LongDescription');
+                theService.clinchTypeMapArray[i].shortDescription  = object.get('ShortDescription');
+            }
+            var successful = new Parse.Promise();
+            successful.resolve(results);
+            //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');            
+            return successful;
+          },
+          error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            var failed = new Parse.Promise();
+            failed.reject(error); 
+            return failed;
+          }
+        });//end of find
+    }
+
+    theService.getErrorMessage = function(errorCode, locale)
+    {
+        //console.log('In globalsService.getErrorMessage- Enter. errorCode='+errorCode+" and locale="+locale);
+        var key = errorCode+"_"+locale;
+        return theService.errorMessagesMap[key];        
+    }
+
+    theService.getErrorMessage = function(errorCode)
+    {
+        //console.log('In globalsService.getErrorMessage- Enter. errorCode='+errorCode);                
+        return theService.getErrorMessage(errorCode,langService.getCurrentLanguage());        
+    }
+
+    theService.fetchErrorMessages = function()
+    {
+        //console.log('In globalsService.fetchErrorMessages- Enter.');        
+        var MessagesClass = Parse.Object.extend("Messages");
+        var query = new Parse.Query(MessagesClass);
+        query.equalTo("Type", "Error");
+        return query.find({
+          success: function(results) {            
+            //alert("Successfully retrieved " + results.length + " scores.");
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+                var key = object.get('Code')+"_"+object.get('Locale');
+                theService.errorMessagesMap[key] = {};                
+                // console.log(object.id + ' - ' + object.get('ProfessionName'));
+                theService.errorMessagesMap[key].title = object.get('Title');
+                theService.errorMessagesMap[key].message  = object.get('Message');                
+            }
+            var successful = new Parse.Promise();
+            successful.resolve(results);
+            //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');            
+            return successful;
+          },
+          error: function(error) {
+            //alert("Error: " + error.code + " " + error.message);
+            var failed = new Parse.Promise();
+            failed.reject(error); 
+            return failed;
+          }
+        });//end of find
+    }
+
+    return theService;
+
+});

@@ -1,0 +1,223 @@
+/* Empty. Add your own CSS if you like */
+.login {
+    background: url(../img/logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 80%;
+    height: 246px;
+    margin: auto;
+    z-index: 2;
+    position: relative;
+}
+.slider {
+  height: 200px;
+}
+.slider-slide {
+  padding: 40px;
+  background-color: #fff;
+}
+.command-image{
+
+    height:38px;
+    width: auto;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.rtl{
+    direction:rtl;
+}
+
+.hi-item{
+    width: 100%;
+    height: 100%;
+}
+
+.slide{
+  height:100vh;
+}
+
+.clinch-image{
+    display: block;
+    height:80px;
+    width: 80px;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.clinch-image-slide{
+    height:150px;
+    width: 150px;
+    margin:auto;
+    display:block
+}
+.small-menu-button-image{
+    display: block;
+    height:28px;
+    width: auto;
+    margin-left:auto;
+    margin-right: auto;
+}
+.big-menu-button-image{
+    display: block;
+    height:35px;
+    width: auto;
+    margin-left:auto;
+    margin-right: auto;
+}
+.user-image{
+    height:40px;
+    width: auto;
+}
+.user-image-right{
+    height:40px;
+    width: auto;
+    float:left;
+}
+.clinch-middle-logo{
+    height:100px;
+    width: auto;
+    padding-right: 5px;
+    padding-left: 15px;
+}
+.clinch-left{
+    height:40px;
+    width: auto;
+    float:left;
+}
+.item-middle{
+    width:150px;
+    padding-left:20px;
+    display: inline-block;
+}
+.change-item{
+    padding-right:0px;
+    padding-bottom: 1px;
+}
+.center-button{
+    direction: ltr;
+    margin-top: 5px;
+    display: block;
+    margin-left:auto;
+    margin-right: auto;
+    clear: both;
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;  height: 0; overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.static-map{
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
+.card-wrap{
+  height: 100% !important;
+  display: -webkit-box!important ;
+  display: -moz-box!important ;
+  display: -ms-flexbox!important ;
+  display: -webkit-flex!important ;
+  display: flex!important ;
+  -webkit-box-direction: normal!important ;
+  -moz-box-direction: normal!important ;
+  -webkit-box-orient: vertical!important ;
+  -moz-box-orient: vertical!important ;
+  -webkit-flex-direction: column!important ;
+  -ms-flex-direction: column!important ;
+  flex-direction: column!important ;
+  -webkit-flex-wrap: nowrap!important ;
+  -ms-flex-wrap: nowrap!important ;
+  flex-wrap: nowrap!important ;
+  -webkit-box-pack: justify!important ;
+  -moz-box-pack: justify!important ;
+  -webkit-justify-content: space-between!important ;
+  -ms-flex-pack: justify!important ;
+  justify-content: space-between!important ;
+  -webkit-align-content: space-around!important ;
+  -ms-flex-line-pack: distribute!important ;
+  align-content: space-around!important ;
+  -webkit-box-align: stretch!important ;
+  -moz-box-align: stretch!important ;
+  -webkit-align-items: stretch!important ;
+  -ms-flex-align: stretch!important ;
+  align-items: stretch!important ;
+
+}
+
+.full-card {
+  -webkit-box-flex: 1 !important ;
+  -moz-box-flex: 1 !important ;
+  -webkit-flex: 1 1 auto !important ;
+  -ms-flex: 1 1 auto !important ;
+  flex: 1 1 auto !important ;
+  -webkit-align-self: stretch !important ;
+  -ms-flex-item-align: stretch !important ;
+  align-self: stretch !important ;
+
+  display: -webkit-box !important ;
+  display: -moz-box !important ;
+  display: -ms-flexbox !important ;
+  display: -webkit-flex !important ;
+  display: flex !important ;
+  -webkit-box-direction: normal !important ;
+  -moz-box-direction: normal !important ;
+  -webkit-box-orient: horizontal !important ;
+  -moz-box-orient: horizontal !important ;
+  -webkit-flex-direction: row !important ;
+  -ms-flex-direction: row !important ;
+  flex-direction: row !important ;
+  -webkit-flex-wrap: nowrap !important ;
+  -ms-flex-wrap: nowrap !important ;
+  flex-wrap: nowrap !important ;
+  -webkit-box-pack: center !important ;
+  -moz-box-pack: center !important ;
+  -webkit-justify-content: center !important ;
+  -ms-flex-pack: center !important ;
+  justify-content: center !important ;
+  -webkit-align-content: space-between !important ;
+  -ms-flex-line-pack: justify !important ;
+  align-content: space-between !important ;
+  -webkit-box-align: center !important ;
+  -moz-box-align: center !important ;
+  -webkit-align-items: center !important ;
+  -ms-flex-align: center !important ;
+  align-items: center !important ;
+}
+.scroll {
+    height: 100%;
+}
+/** Styling for the username field **/
+label.item.has-error {  
+  border-bottom: 2px solid red;
+}
+
+/** Styling for the password field when an error exists**/
+label.item.has-error-lr {  
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+
+/** Styling for the password field when an error has been resolved**/
+label.item.valid-lr {  
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+}
+
+/** Styling for the error text and container **/
+.form-errors {
+  margin: 5px 0
+}
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: red;
+}

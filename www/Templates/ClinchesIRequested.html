@@ -1,0 +1,26 @@
+<ion-view title="My Clinches">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="clinch in clinchesIRequested" href="#/ltr/clinchirequested/{{clinch.index}}" class="item item-avatar">
+
+
+                <img ng-src ="img\{{clinch.image}}">
+
+                <h2>{{clinch.type}}</h2>
+
+                <span>Partner: {{clinch.partnerName}}</span>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

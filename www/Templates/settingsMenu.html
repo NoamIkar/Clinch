@@ -1,0 +1,40 @@
+<ion-header-bar class="bar  bar-light" animation="slide-left-right" align-title="center">
+    <h1 class="title">More Options</h1>
+</ion-header-bar>
+
+<ion-content>
+    <ul class="list" ng-controller="settingsController">
+
+        <li class="item"   ng-show="isConnected">
+            <a menu-close ng-click="toggleListCards()">
+                <div ng-show="showList">change to cards view</div>
+                <div ng-hide="showList">change to list view</div>
+            </a>
+        </li>
+        <li class="item"   ng-show="isConnected">
+            <a menu-close ng-click="goSettingsPage()">
+                Settings
+            </a>
+        </li>
+        <li class="item">
+            <a menu-close ng-click="watchVideoAgain()">
+                Watch Intro video again
+            </a>
+        </li>
+        <li  class="item" ng-show="isConnected">
+            <a  menu-close ng-click="logout()">
+                <div >
+Logout
+                </div>
+            </a>
+        </li>
+
+        <li class="item">
+            <a ng-click="leave()">
+                Exit application
+            </a>
+        </li>
+
+
+    </ul>
+</ion-content>

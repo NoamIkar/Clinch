@@ -1,0 +1,51 @@
+<ion-view title="התחברות">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon button-clear button-small ">
+            <img src="img/settings.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button menu-toggle="right" class="button button-icon button-clear ">
+            <img src="img/logo.png" class="small-menu-button-image">
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="rtl">
+        <div class="card">
+            <div class="item item-divider">
+                התחבר בבקשה
+            </div>
+            <div class="item item-text-wrap">
+                ברוך הבא לקלינץ'
+                <br>
+                אם לא נרשמת עדיין אנא עשה זאת עכשיו.
+                <br>
+                אם כבר נרשמת - אנא התחבר:
+                <br>
+            </div>
+            <div class="list item">
+                <label class="item item-input">
+                    <i class="icon ion-android-person padding-right"><!--img src="img/User_id.png" class="small-menu-button-image"--></i>
+                    <input type="text" placeholder="שם משתמש" ng-model="userDetails.uname" ng-focus="hideErrorMessage()">
+                </label>
+                <label class="item item-input">
+                    <i class="icon ion-locked padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
+                    <input type="password" placeholder="סיסמה" ng-model="userDetails.password" ng-focus="hideErrorMessage()">
+                </label>
+
+            </div>
+            <div class="item" ng-show="failMessage">
+                השם או הסיסמה שגויים, אנא נסה שוב
+            </div>
+
+        </div>
+        <div class="item">
+            <button class="button button-positive center-button" ng-click="login()">
+                התחבר
+            </button>
+        </div>
+משתמש חדש ?
+        <a ng-click="goSignUp()" class="positive">
+אנא הירשם
+        </a>
+    </ion-content>
+</ion-view>
