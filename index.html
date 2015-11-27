@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Clinch</title>
+
+    <link href="www/lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="www/css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="www/lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- parse.com library -->
+    <script type="text/javascript" src="www/js/parse-1.4.0.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="www/lib/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+    <script src="www/lib/angular-messages/angular-messages.min.js"></script>
+    
+
+    <script src="www/js/globals.js"></script>
+    <script src="www/js/language.js"></script>
+
+
+    <!-- your app's js -->
+
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWKttXZYbXV7HEkxaWzOHjrHhthsqP0A4"&region=IL>
+    </script>
+    <script src="www/js/app.js"></script>
+    <script src="www/js/clinchService.js"></script>
+    <script src="www/js/controllers/loginController.js"></script>
+
+    <script src="www/js/controllers/clinchControllers.js"></script>
+    <script src="www/js/controllers/ClinchesIRequestedController.js"></script>
+    <script src="www/js/controllers/myRequestedClinchControllers.js"></script>
+    <script src="www/js/controllers/activeClinchControllers.js"></script>
+    <script src="www/js/controllers/professionController.js"></script>
+    <script src="www/js/controllers/locationController.js"></script>
+    <script src="www/js/controllers/settingsPageController.js"></script>
+    <script src="www/js/controllers/signUpController.js"></script>
+    <script src="www/js/controllers/UserListController.js"></script>
+    
+
+    <script src="www/js/usersService.js"></script>
+    <script src="www/js/professionService.js"></script>
+
+
+
+    <script src="www/js/controllers/settingsController.js"></script>
+    <script src="www/js/controllers/clinchMenuController.js"></script>
+    <script src="www/js/controllers/introController.js"></script>
+</head>
+
+<body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+</body>
+
+</html>
