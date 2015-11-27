@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.clinch" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.clinch" 
+        versionCode="1"
+        version="0.0.1" 
+        xmlns="http://www.w3.org/ns/widgets" 
+        xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Clinch</name>
     <description>
         Clinch to collaborate with others to improve your business
@@ -7,7 +11,15 @@
     <author email="noam.ikar@gmail.com" href="http://clinch.com/">
         Clinch Team
     </author>
+
+    <platform name="ios" />
+    <platform name="android" />
+
     <content src="index.html" />
     <access origin="*" />
+
     <preference name="fullscreen" value="true" />
+
+    <feature name="http://api.phonegap.com/1.0/geolocation" />
+    <feature name="http://api.phonegap.com/1.0/network" />
 </widget>
