@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-alert('Before Parse.initialize');
+
     Parse.initialize(PARSE_APP, PARSE_JS);
 alert('After Parse.initialize');
 
