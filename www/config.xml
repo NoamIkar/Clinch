@@ -16,7 +16,7 @@
     <platform name="android" />
 
     <content src="index.html" />
-    <access origin="*" />
+    
 
     <preference name="fullscreen" value="true" />
 
@@ -32,6 +32,10 @@
     <plugin name="com.dawsonloudon.videoplayer" spec="~1" source="pgb" />
     
     <plugin name="cordova-plugin-whitelist" spec="~1" />
+    <access origin="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
