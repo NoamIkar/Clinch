@@ -10,6 +10,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
   $ionicPlatform.ready(function($urlRouterProvider) {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    console.log('Entered Application');
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -43,6 +44,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
             
           navigator.globalization.getPreferredLanguage(
               function (language, $stateProvider) {
+                  console.log('language.value='+language.value);
                   if (language.value === "he-IL") {
                       langService.setCurrentLanguage("he");
                       globalsService.init();
