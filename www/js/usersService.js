@@ -7,13 +7,13 @@
 var usersModule = angular.module('users', []);
 
 
-usersModule.run(
+/*usersModule.run(
     function () {
 
         // Initialize parse with the application key and Javascript key
         Parse.initialize("bk8PWoMjrqIo6MwRsKDPGxz25zcCRCV4FvXchh1F", "4X6Tsq9jFqvRAMMFOIatn0xGNZFmLiMOdg4R4deT");
     }
-);
+);*/
 
 
 usersModule.factory('usersService', function () {

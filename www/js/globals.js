@@ -33,6 +33,7 @@ clinchModule.factory('globalsService', function (langService) {
     }
 
     theService.init = function(){
+alert('globalsService.init=');
         theService.fetchProfessions();
         theService.fetchClinchTypes();
         theService.fetchToUser();

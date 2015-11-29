@@ -4,20 +4,27 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
+//Parse related keys
+var PARSE_APP = "bk8PWoMjrqIo6MwRsKDPGxz25zcCRCV4FvXchh1F";
+var PARSE_JS = "4X6Tsq9jFqvRAMMFOIatn0xGNZFmLiMOdg4R4deT";
+
 angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsModule', 'users', 'professionModule','ngMessages'])
 
 .run(function($ionicPlatform, $state, langService, clinchService, globalsService) {
   $ionicPlatform.ready(function($urlRouterProvider) {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    console.log('Entered Application');
-    alert('Entered Application');
+    //console.log('Entered Application');
+    //alert('Entered Application');
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+alert('Before Parse.initialize');
+    Parse.initialize(PARSE_APP, PARSE_JS);
+alert('After Parse.initialize');
 
     if (typeof navigator.globalization === "undefined"){
           console.log('the navigator.globalization is not available and undefined.\nIt may be that you are using your browser for testing.\nSetting to English...'); // print into console
@@ -45,7 +52,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
             
           navigator.globalization.getPreferredLanguage(
               function (language, $stateProvider) {
-                  console.log('language.value='+language.value);
+alert('language.value='+language.value);
                   if (language.value === "he-IL") {
                       langService.setCurrentLanguage("he");
                       globalsService.init();
