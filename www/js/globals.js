@@ -37,8 +37,8 @@ alert('globalsService.init - fetchProfessions');
         theService.fetchProfessions();
 alert('globalsService.init - fetchClinchTypes');
         theService.fetchClinchTypes();
-alert('globalsService.init - fetchToUser');
-        theService.fetchToUser();
+//alert('globalsService.init - fetchToUser');
+        //theService.fetchToUser();
 alert('globalsService.init end');
     }
 
@@ -162,11 +162,11 @@ alert('globalsService.fetchToUser error='+error);
         var query = new Parse.Query(ClinchTypeClass);
         //query.equalTo("playerName", "Dan Stemkoski");
         return query.find({
-          success: function(results) {            
+          success: function(results) {
+alert(" ClinchType - Successfully retrieved " + results.length + " scores.");            
             //alert("Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
-alert(" ClinchType - Successfully retrieved " + results.length + " scores.");
                 var object = results[i];
                 theService.clinchTypeMap[object.id] = {};                
                 theService.clinchTypeMap[object.id] = object;
