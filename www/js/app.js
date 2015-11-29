@@ -57,7 +57,6 @@ alert('language.value='+language.value);
                       langService.setCurrentLanguage("he");
                       globalsService.init();
                       //langService.fillStrings();
-                      
 
                       if(window.localStorage.getItem("Intro") === "wasShown")
                       {
@@ -78,11 +77,13 @@ alert('language.value='+language.value);
                       langService.setCurrentLanguage("en");
                       globalsService.init();
                       //langService.fillStrings();
-                      
+alert('After globalsService.init()');                      
 
                       if(window.localStorage.getItem("Intro") === "wasShown")
                       {
+alert('Intro wasShown true');
                           var currentUser = Parse.User.current();
+alert('currentUser='+currentUser);
                           if (currentUser) {
                               //$state.go('ltr.clinches');
                               //clinchService.getClinches(false);
@@ -92,8 +93,10 @@ alert('language.value='+language.value);
                           }
 
                       }
-                      else
+                      else{
+alert('Intro wasShown false');
                           $state.go('ltr.intro');
+                      }
                   }
               }, function () {
                   alert('Error getting language\n');

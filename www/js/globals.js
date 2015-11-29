@@ -77,7 +77,7 @@ alert('globalsService.fetchProfessions 3');
         //query.equalTo("playerName", "Dan Stemkoski");
         return query.find({
           success: function(results) {            
-            alert("Successfully retrieved " + results.length + " scores.");
+alert("Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
@@ -97,7 +97,7 @@ alert('globalsService.fetchProfessions 3');
             return successful;
           },
           error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
+            //alert("Error: " + error.code + " " + error.message);
             var failed = new Parse.Promise();
             failed.reject(error); 
             return failed;
