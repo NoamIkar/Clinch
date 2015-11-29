@@ -33,10 +33,13 @@ clinchModule.factory('globalsService', function (langService) {
     }
 
     theService.init = function(){
-alert('globalsService.init');
+alert('globalsService.init - fetchProfessions');
         theService.fetchProfessions();
+alert('globalsService.init - fetchClinchTypes');
         theService.fetchClinchTypes();
+alert('globalsService.init - fetchToUser');
         theService.fetchToUser();
+alert('globalsService.init end');
     }
 
     theService.getProfession = function(professionId)
@@ -69,15 +72,15 @@ alert('globalsService.init');
     theService.fetchProfessions = function()
     {
         console.log('In globalsService.fetchProfessions- Enter.');        
-alert('globalsService.fetchProfessions 1');
+//alert('globalsService.fetchProfessions 1');
         var ProfessionClass = Parse.Object.extend("Profession");
-alert('globalsService.fetchProfessions 2');
+//alert('globalsService.fetchProfessions 2');
         var query = new Parse.Query(ProfessionClass);
-alert('globalsService.fetchProfessions 3');
+//alert('globalsService.fetchProfessions 3');
         //query.equalTo("playerName", "Dan Stemkoski");
         return query.find({
           success: function(results) {            
-alert("Successfully retrieved " + results.length + " scores.");
+alert("fetchProfessions - Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
@@ -107,12 +110,16 @@ alert("Successfully retrieved " + results.length + " scores.");
 
     theService.fetchToUser = function()
     {
+alert('globalsService.fetchToUser 1');
         //console.log('In globalsService.fetchProfessions- Enter.');        
         var userQuery = new Parse.Query(Parse.User);
+alert('globalsService.fetchToUser 2');
         //userQuery.equalTo('objectId',Parse.User.current().id);
         userQuery.include('Profession');
+alert('globalsService.fetchToUser 3');
         userQuery.get(Parse.User.current().id, {
             success: function(user) {
+alert('globalsService.fetchToUser user='+user);
                 // The object was retrieved successfully.
                 //var toUserId = user.id;
                 //var toUserProfession = user.get('Profession');
@@ -126,6 +133,7 @@ alert("Successfully retrieved " + results.length + " scores.");
                 return successful;
             },
             error: function(user, error) {
+alert('globalsService.fetchToUser error='+error);
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and message.
                 var failed = new Parse.Promise();
@@ -158,6 +166,7 @@ alert("Successfully retrieved " + results.length + " scores.");
             //alert("Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
+alert(" ClinchType - Successfully retrieved " + results.length + " scores.");
                 var object = results[i];
                 theService.clinchTypeMap[object.id] = {};                
                 theService.clinchTypeMap[object.id] = object;
