@@ -6,7 +6,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("activeClinchController", function($scope, $stateParams, clinchService) {
+starter.controller("activeClinchController", function($scope, $stateParams, $ionicHistory, clinchService) {
     $scope.clinchId = $stateParams.clinchId;
     var index = parseInt($scope.clinchId);
     $scope.myClinch = clinchService.getActiveClinch(index-1);
@@ -27,6 +27,11 @@ starter.controller("activeClinchController", function($scope, $stateParams, clin
         //    "http://maps.google.com/staticmap?center=37.687,-122.407&zoom=8&size=450x300&maptype=terrain&key=[my key here]&sensor=false"
         document.getElementById('theMap').src = all;
     });
+
+    $scope.goBack = function()
+    {
+        $ionicHistory.goBack();
+    };
 
 });
 
