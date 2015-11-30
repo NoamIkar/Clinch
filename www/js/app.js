@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
     }
 
     Parse.initialize(PARSE_APP, PARSE_JS);
-alert('After Parse.initialize');
+//alert('After Parse.initialize');
 
     if (typeof navigator.globalization === "undefined"){
           console.log('the navigator.globalization is not available and undefined.\nIt may be that you are using your browser for testing.\nSetting to English...'); // print into console

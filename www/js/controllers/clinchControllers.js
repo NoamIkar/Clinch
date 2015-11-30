@@ -15,7 +15,7 @@ var starter = angular.module('starter');
 //}
 
 
-starter.controller("clinchController", function ($scope, $stateParams, clinchService, langService) {
+starter.controller("clinchController", function ($scope, $stateParams, $ionicHistory, clinchService, langService) {
     
     $scope.userClinchIndex = $stateParams.userClinchIndex;
     $scope.userClinch = clinchService.getUserByClinch($stateParams.userClinchIndex);
@@ -48,6 +48,12 @@ starter.controller("clinchController", function ($scope, $stateParams, clinchSer
     $scope.requestClinch = function(){
         clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex);
     }
+
+    $scope.goBack = function()
+    {
+        $ionicHistory.goBack();
+        //$ionicHistory.backView();
+    };
 
 });
 

@@ -5,7 +5,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("loginController", function($scope, langService, $state, clinchService, $ionicHistory) {
+starter.controller("loginController", function($scope, langService, $state, clinchService, $ionicHistory, globalsService) {
 
     $scope.userDetails = {};
 
@@ -14,7 +14,8 @@ starter.controller("loginController", function($scope, langService, $state, clin
     {
         //console.log('In loginController LOGIN...');
         Parse.User.logIn($scope.userDetails.uname, $scope.userDetails.password, {
-            success: function (user) {                
+            success: function (user) {
+                globalsService.fetchToUser();
                 $scope.goClinches();
             },
             error: function (user, error) {

@@ -23,7 +23,7 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
         var key = "&key=AIzaSyAWkXfBKSmL0YO5RRURIm6cfe4ouT8CJx8";
         //var sensor = "&sensor=false";
 
-        var all = url + location + zoom + size + maptype + key + sensor;
+        var all = url + location + zoom + size + maptype + key;// + sensor;
         //document.getElementById('my-image-id').src =
         //    "http://maps.google.com/staticmap?center=37.687,-122.407&zoom=8&size=450x300&maptype=terrain&key=[my key here]&sensor=false"
         document.getElementById('theMap').src = all;

@@ -33,13 +33,16 @@ clinchModule.factory('globalsService', function (langService) {
     }
 
     theService.init = function(){
-alert('globalsService.init - fetchProfessions');
+//alert('globalsService.init - fetchProfessions');
         theService.fetchProfessions();
-alert('globalsService.init - fetchClinchTypes');
+//alert('globalsService.init - fetchClinchTypes');
         theService.fetchClinchTypes();
 //alert('globalsService.init - fetchToUser');
-        //theService.fetchToUser();
-alert('globalsService.init end');
+//Moved fetchToUser to the login functions
+        if(Parse.User.current()){
+            theService.fetchToUser();
+        }
+//alert('globalsService.init end');
     }
 
     theService.getProfession = function(professionId)
@@ -80,7 +83,7 @@ alert('globalsService.init end');
         //query.equalTo("playerName", "Dan Stemkoski");
         return query.find({
           success: function(results) {            
-alert("fetchProfessions - Successfully retrieved " + results.length + " scores.");
+//alert("fetchProfessions - Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
@@ -110,16 +113,14 @@ alert("fetchProfessions - Successfully retrieved " + results.length + " scores."
 
     theService.fetchToUser = function()
     {
-alert('globalsService.fetchToUser 1');
+
         //console.log('In globalsService.fetchProfessions- Enter.');        
         var userQuery = new Parse.Query(Parse.User);
-alert('globalsService.fetchToUser 2');
         //userQuery.equalTo('objectId',Parse.User.current().id);
         userQuery.include('Profession');
-alert('globalsService.fetchToUser 3');
         userQuery.get(Parse.User.current().id, {
             success: function(user) {
-alert('globalsService.fetchToUser user='+user);
+//alert('globalsService.fetchToUser user='+user);
                 // The object was retrieved successfully.
                 //var toUserId = user.id;
                 //var toUserProfession = user.get('Profession');
@@ -133,7 +134,7 @@ alert('globalsService.fetchToUser user='+user);
                 return successful;
             },
             error: function(user, error) {
-alert('globalsService.fetchToUser error='+error);
+//alert('globalsService.fetchToUser error='+error);
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and message.
                 var failed = new Parse.Promise();
@@ -163,7 +164,7 @@ alert('globalsService.fetchToUser error='+error);
         //query.equalTo("playerName", "Dan Stemkoski");
         return query.find({
           success: function(results) {
-alert(" ClinchType - Successfully retrieved " + results.length + " scores.");            
+//alert(" ClinchType - Successfully retrieved " + results.length + " scores.");            
             //alert("Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
@@ -241,6 +242,28 @@ alert(" ClinchType - Successfully retrieved " + results.length + " scores.");
             return failed;
           }
         });//end of find
+    }
+
+    theService.showMessage = function(message, callback, title, buttonName) {
+
+        title = title || "Message";
+        buttonName = buttonName || 'OK';
+
+        if(navigator.notification && navigator.notification.alert) {
+
+            navigator.notification.alert(
+                message,    // message
+                callback,   // callback
+                title,      // title
+                buttonName  // buttonName
+            );
+
+        } else {
+
+            alert(message);
+            callback();
+        }
+
     }
 
     return theService;

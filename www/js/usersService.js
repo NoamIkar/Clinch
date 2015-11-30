@@ -16,7 +16,7 @@ var usersModule = angular.module('users', []);
 );*/
 
 
-usersModule.factory('usersService', function () {
+usersModule.factory('usersService', function (globalsService) {
 
         var theService = {};
 
@@ -25,6 +25,7 @@ usersModule.factory('usersService', function () {
             Parse.User.logIn(uname, password, {
                 success: function (user) {
                     // Do stuff after successful login.
+                    globalsService.fetchToUser();
                 },
                 error: function (user, error) {
                     // The login failed. Check error to see why.
