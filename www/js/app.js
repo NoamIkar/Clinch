@@ -19,11 +19,14 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    /*if(window.StatusBar) {
       //StatusBar.styleDefault();
+      alert("in window.StatusBar");
       StatusBar.hide();
-      ionic.Platform.fullScreen();
-    }
+      alert("in window.StatusBar after hide before fullScreen");
+      $ionicPlatform.fullScreen();
+      alert("in window.StatusBar after fullScreen");
+    }*/
 
     Parse.initialize(PARSE_APP, PARSE_JS);
 //alert('After Parse.initialize');
