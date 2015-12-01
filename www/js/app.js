@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
     if(window.StatusBar) {
       //StatusBar.styleDefault();
       StatusBar.hide();
-      $ionicPlatform.fullScreen();
+      ionic.Platform.fullScreen();
     }
 
     Parse.initialize(PARSE_APP, PARSE_JS);
