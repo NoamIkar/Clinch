@@ -27,7 +27,7 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
 
     //google.maps.event.addDomListener(window, 'load', function() {
     $scope.$on('$ionicView.enter', function () {
-        console.log('****In clinchController - on = ');
+        //console.log('****In clinchController - on = ');
 
         var url = "https://maps.googleapis.com/maps/api/staticmap";
         //var location = "?center=32.191697,34.892365"; // Buy the Way Kfar-Saba
@@ -69,7 +69,7 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
         {
             var currentUser = Parse.User.current();
             if (currentUser) {
-                console.log('In clinchesController -> function on');
+                //console.log('In clinchesController -> function on');
                 /*console.log('In clinchesController Cleaning Chace and Sending a reload request with TRUE...');
                 $ionicHistory.clearCache();
                 $ionicHistory.clearHistory();
@@ -83,8 +83,10 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
                 clinchService.fetchClinches().then(function (result) {
                     //console.log('In clinchesController - Got result = '+result);
                     $scope.clinches = result;
+                    $ionicLoading.hide();
                 },
                 function (error) {
+                    $ionicLoading.hide();
                     console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
                     alert(error.message);
                     //to do - add error codes
@@ -103,7 +105,7 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
                     } 
                 });
                 //$scope.$broadcast('$ionicView.beforeEnter');
-                $ionicLoading.hide();
+                
             } else {
                 // Not logged in - sign up
                 //Clean the cahce before going to Clinch view

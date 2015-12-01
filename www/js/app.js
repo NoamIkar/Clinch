@@ -20,7 +20,9 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      //StatusBar.styleDefault();
+      StatusBar.hide();
+      $ionicPlatform.fullScreen();
     }
 
     Parse.initialize(PARSE_APP, PARSE_JS);
@@ -52,7 +54,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
             
           navigator.globalization.getPreferredLanguage(
               function (language, $stateProvider) {
-alert('language.value='+language.value);
+//alert('language.value='+language.value);
                   if (language.value === "he-IL") {
                       langService.setCurrentLanguage("he");
                       globalsService.init();
@@ -77,13 +79,13 @@ alert('language.value='+language.value);
                       langService.setCurrentLanguage("en");
                       globalsService.init();
                       //langService.fillStrings();
-alert('After globalsService.init()');                      
+//alert('After globalsService.init()');                      
 
                       if(window.localStorage.getItem("Intro") === "wasShown")
                       {
-alert('Intro wasShown true');
+//alert('Intro wasShown true');
                           var currentUser = Parse.User.current();
-alert('currentUser='+currentUser);
+//alert('currentUser='+currentUser);
                           if (currentUser) {
                               //$state.go('ltr.clinches');
                               //clinchService.getClinches(false);
@@ -94,7 +96,7 @@ alert('currentUser='+currentUser);
 
                       }
                       else{
-alert('Intro wasShown false');
+//alert('Intro wasShown false');
                           $state.go('ltr.intro');
                       }
                   }

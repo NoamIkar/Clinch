@@ -40,7 +40,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
 
 
     $scope.$on('$ionicView.enter', function(){
-        console.log('In locationController.scope.on');
+        //console.log('In locationController.scope.on');
         /*document.addEventListener("deviceready", onDeviceReady, false);
         
         function onDeviceReady() {
@@ -142,9 +142,9 @@ starter.controller("locationController", function($scope, langService, clinchSer
     }
 
     $scope.codeAddess = function () {
-        console.log('In locationController.codeAddess');
+        //console.log('In locationController.codeAddess');
         var address = document.getElementById("address").value;
-        console.log('In locationController.codeAddess -> address='+address);
+        //console.log('In locationController.codeAddess -> address='+address);
         if(!address){
             return;
         }
@@ -164,10 +164,10 @@ starter.controller("locationController", function($scope, langService, clinchSer
 
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode( { 'address': address}, function(results, status) {
-            console.log('In locationController.codeAddess -> results='+results.length);
+            //console.log('In locationController.codeAddess -> results='+results.length);
           if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
-            console.log('In locationController.codeAddess -> marker='+marker);
+            //console.log('In locationController.codeAddess -> marker='+marker);
             if (marker != undefined)
                 marker.setMap(null);
             marker = new google.maps.Marker({

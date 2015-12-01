@@ -74,7 +74,7 @@ clinchModule.factory('globalsService', function (langService) {
 
     theService.fetchProfessions = function()
     {
-        console.log('In globalsService.fetchProfessions- Enter.');        
+        //console.log('In globalsService.fetchProfessions- Enter.');        
 //alert('globalsService.fetchProfessions 1');
         var ProfessionClass = Parse.Object.extend("Profession");
 //alert('globalsService.fetchProfessions 2');
