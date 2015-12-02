@@ -22,7 +22,7 @@
                 <!--<label class="item item-input ">-->
                 <label class="item item-input">
                     <i class="icon ion-android-person padding-right"><!--img src="img/User_id.png" class="small-menu-button-image"--></i>
-                    <input type="text"  placeholder="Name" ng-model="userDetails.uname" ng-keypress="hideErrorMessage()" required minlength="5" maxlength="12">
+                    <input type="text"  placeholder="Name" ng-model="userDetails.uname" ng-keypress="hideErrorMessage()" required><!-- minlength="5" maxlength="12">-->
                 </label>
                 <label class="item item-input">
                     <i class="icon ion-locked padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
@@ -30,8 +30,9 @@
                 </label>
 
             </div>
-            <div ng-show="failMessage">
-                Name or password are incorrect. Please try again.
+            <div class="ng-hide assertive" ng-show="failMessage">
+                <!--Name or password are incorrect. Please try again.-->
+                {{errorMessage}}
             </div>
             <!--<div class="form-error" ng-message="required">This field is required.</div>
             <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>

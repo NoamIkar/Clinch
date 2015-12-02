@@ -5,21 +5,33 @@
 var starter = angular.module('starter');
 
 
-starter.controller("loginController", function($scope, langService, $state, clinchService, $ionicHistory, globalsService) {
+starter.controller("loginController", function($scope, langService, $state, clinchService, $ionicHistory, $ionicLoading, globalsService) {
 
     $scope.userDetails = {};
+    $scope.errorMessage = '';
 
+    $scope.$on('$ionicView.enter', function () {
+        //console.log('In loginController cleaning cache');
+        //$ionicHistory.clearCache();
+        //$ionicHistory.clearHistory();
+        $scope.userDetails = {};
+        $scope.errorMessage = '';
+    });
     
     $scope.login = function()
     {
         //console.log('In loginController LOGIN...');
+        $ionicLoading.show({template: 'Loading...'});
         Parse.User.logIn($scope.userDetails.uname, $scope.userDetails.password, {
             success: function (user) {
+                $ionicLoading.hide();
                 globalsService.fetchToUser();
                 $scope.goClinches();
             },
             error: function (user, error) {
                 $scope.failMessage = true;
+                $scope.errorMessage = error.message && error.message[0].toUpperCase() + error.message.slice(1);
+                $ionicLoading.hide();
             }
         });
     };

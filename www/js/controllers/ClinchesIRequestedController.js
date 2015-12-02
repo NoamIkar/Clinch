@@ -92,6 +92,5 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
 starter.controller("ClinchesIRequestedController", function($scope, $stateParams, clinchService) {
 
     $scope.clinchesIRequested = clinchService.getClinchesIRequested();
-
 });
 

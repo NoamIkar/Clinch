@@ -12,6 +12,7 @@
     <ion-content scrollbar-x="false">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
         </ion-refresher>
+        <h4  class="item item-text-wrap" ng-show="!clinchesIRequested.length || clinchesIRequested.length==0">No Clinches Found</h4>
         <ion-list can-swipe="false">
             <ion-item ng-repeat="clinch in clinchesIRequested" href="#/ltr/clinchirequested/{{clinch.index}}" class="card">
                 <div class="card padding">

@@ -366,9 +366,9 @@ theService.userListByClinch = [];
                 
                 var params = {};                
                 params.messageCode = 2000;
-                params.partnerName = userClinch.fromUserBusinessName;
+                params.fromUserBusinessName = userClinch.fromUserBusinessName;
                 params.currentUserBusinessName = currentUserBusinessName;
-                params.clinchType = selectedClinch.ruleTitle;
+                params.ruleTitle = selectedClinch.ruleTitle;
                 params.kilometersTo = userClinch.kilometersTo;
                 params.longDescription = selectedClinch.longDescription;
                 params.toUserEmail = toUserEmail;
