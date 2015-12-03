@@ -46,7 +46,13 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
     });
 
     $scope.requestClinch = function(){
-        clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex);
+        clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex).then(function (result) {                    
+            $ionicHistory.goBack();            
+        },
+        function (error) {
+        
+        });
+        
     }
 
     $scope.goBack = function()

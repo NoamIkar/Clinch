@@ -85,17 +85,27 @@ clinchModule.factory('globalsService', function (langService) {
           success: function(results) {            
 //alert("fetchProfessions - Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
+            var ind = 0;
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
+                var roleInd = object.get('Role');
+                if(roleInd && roleInd == 'Admin' ){
+                    //console.log('Found Admin='+roleInd);       
+                    continue;
+                }
+
+
                 theService.professionMap[object.id] = object;
                 //theService.professionMap[object.id].id = object.id;
                 //theService.professionMap[object.id].professionName = object.get('ProfessionName');
                 //theService.professionMap[object.id].imageFileName  = object.get('imageFileName');
-
-                theService.professionMapArray[i] = {};
-                theService.professionMapArray[i].id = object.id;
-                theService.professionMapArray[i].professionName = object.get('ProfessionName');
-                theService.professionMapArray[i].imageFileName  = object.get('imageFileName');
+                
+                theService.professionMapArray[ind] = {};
+                theService.professionMapArray[ind].id = object.id;
+                theService.professionMapArray[ind].index = ind;
+                theService.professionMapArray[ind].professionName = object.get('ProfessionName');
+                theService.professionMapArray[ind].imageFileName  = object.get('imageFileName');
+                ind++;
             }
             var successful = new Parse.Promise();
             successful.resolve(results);

@@ -9,7 +9,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("professionController", function ($scope, $timeout,langService, $state, professionService, $ionicPopover,$ionicLoading,$ionicSlideBoxDelegate) {
+starter.controller("professionController", function ($scope, $timeout,langService, $state, professionService, $ionicPopover,$ionicLoading,$ionicSlideBoxDelegate,globalsService) {
 
     $scope.searchText = {};
     var currentProfession;
@@ -22,7 +22,7 @@ starter.controller("professionController", function ($scope, $timeout,langServic
         if(error){
             console.log('In professionController GOT ERROR='+error);
         }
-        $ionicLoading.show({template: 'Loading...'});
+        /*$ionicLoading.show({template: 'Loading...'});
   
         professionService.getAllProfessions().then(function (result) {
             //console.log('In clinchesController - Got result = '+result);
@@ -33,7 +33,8 @@ starter.controller("professionController", function ($scope, $timeout,langServic
             alert(error.message);                    
         });
         $scope.$broadcast('scroll.refreshComplete');
-        $ionicLoading.hide();
+        $ionicLoading.hide();*/
+        $scope.professions = professionService.getAllProfessions();
     });
         
     
@@ -63,8 +64,18 @@ starter.controller("professionController", function ($scope, $timeout,langServic
 
     };
 
-    $scope.saveProfession = function(profession)
+    /*$scope.saveProfession = function(profession)
     {
+
+        if(!profession){
+            var message = "Please select a profession.";
+            //globalsService.showMessage(message,function(){},null,null);
+            //return;
+            var failed = new Parse.Promise();
+            failed.reject(message); 
+            return failed;
+        }
+        //professionService.saveProfession(profession.index);
         //console.log('In professionController - setProfession - profession='+profession.id);
         var user = Parse.User.current();
         var parseProfession = professionService.getProfession(profession.index);
@@ -83,7 +94,7 @@ starter.controller("professionController", function ($scope, $timeout,langServic
                 return failed;               
               }
         );
-    }
+    }*/
 
     //professionService.getAllProfessionNames().then(
     /*professionService.getAllProfessions().then(
@@ -97,21 +108,31 @@ starter.controller("professionController", function ($scope, $timeout,langServic
 
     $scope.confirm = function()
     {
-        $scope.saveProfession(currentProfession).then(function (result) {
+        professionService.saveProfession(currentProfession).then(function (result) {
                 $scope.goLocation();
             },function (error) {
-                console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
-                alert(error.message);
+                //console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
+                //alert(error.message);
+                globalsService.showMessage(error,function(){},null,null);
+                return;
                 //alert("Please try again");
                 //to do - add error codes
             });        
     }
 
     $scope.goLocation = function () {
-        if (langService.getDirection() == "rtl")
-            $state.go('rtl.location');
-        else
-            $state.go('ltr.location');
+        var location = Parse.User.current().get('location');
+        if(!location){
+            if (langService.getDirection() == "rtl")
+                $state.go('rtl.location');
+            else
+                $state.go('ltr.location');
+        }else{
+            if (langService.getDirection() == "rtl")
+                $state.go('rtl.cards');
+            else
+                $state.go('ltr.cards');
+        }
     }
 
     $scope.setSearchString = function(profession, index)

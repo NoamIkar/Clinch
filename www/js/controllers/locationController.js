@@ -10,7 +10,7 @@ var starter = angular.module('starter');
 var map;
 var marker;
 
-starter.controller("locationController", function($scope, langService, clinchService, $state, $cordovaGeolocation, $ionicLoading, $ionicHistory) {
+starter.controller("locationController", function($scope, langService, clinchService, $state, $cordovaGeolocation, $ionicLoading, $ionicHistory, globalsService) {
 
     $scope.goClinches = function(){
         //Clean the cahce before going to Clinch view
@@ -20,6 +20,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
         //reload the clinches for this user
         //console.log('In locationController Sending a reload request with FALSE...');
         //clinchService.getClinches(false);
+        globalsService.fetchToUser();
         if (langService.getDirection() == "rtl")
             $state.go('rtl.cards');
         else

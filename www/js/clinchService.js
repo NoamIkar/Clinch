@@ -359,7 +359,7 @@ theService.userListByClinch = [];
             params.fromUserId = fromUserId;
             params.clinchTypeId = clinchTypeId;
 
-            Parse.Cloud.run('requestClinch', params).then(function (result) {
+            return Parse.Cloud.run('requestClinch', params).then(function (result) {
                 var currentUser = Parse.User.current();
                 var currentUserBusinessName = currentUser.get('BusinessName');
                 var toUserEmail = currentUser.get('email');
@@ -385,12 +385,12 @@ theService.userListByClinch = [];
                     var successful = new Parse.Promise();
                     successful.resolve(result);
                     //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
-                    //return successful;
+                    return successful;
                   },
                   function (error) {
                     var failed = new Parse.Promise();
                     failed.reject(error); 
-                    //return failed;               
+                    return failed;               
                   }
             );
             //After/Before? sending mail, create the clinch in the Clinch table
