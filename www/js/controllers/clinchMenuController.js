@@ -102,4 +102,21 @@ starter.controller("clinchMenuController", function ($scope, $state, globalsServ
                 $state.go('ltr.activecards');
     }
 
+    //*********** goMyProfile
+    $scope.goMyProfile = function () {
+        //starter.value("clinchData", "active");
+        var clinchDisplayState = globalsService.getClinchDisplayState();
+
+        if (langService.getDirection() === "rtl")
+            if (clinchDisplayState == "list")
+                $state.go('rtl.myprofile');
+            else
+                $state.go('rtl.myprofile');
+        else
+            if (clinchDisplayState == "list")
+                $state.go('ltr.myprofile');
+            else
+                $state.go('ltr.myprofile');
+    }
+
 });

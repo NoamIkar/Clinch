@@ -354,7 +354,7 @@ theService.userListByClinch = [];
             
             ////////////////////////
             var fromUserId = userClinch.fromUserId;
-            var clinchTypeId = userClinch.fromUserId;
+            var clinchTypeId = selectedClinch.clinchTypeId;
             var params = {};                
             params.fromUserId = fromUserId;
             params.clinchTypeId = clinchTypeId;

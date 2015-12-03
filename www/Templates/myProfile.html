@@ -10,5 +10,38 @@
         </button>
     </ion-nav-buttons>
     <ion-content>
+         <div class="card">
+            <div class="item item-divider">
+                Name
+            </div>
+            <div class="item item-text-wrap">
+                {{toUserName}}
+            </div>
+            <div class="item item-divider">
+                EMail
+            </div>
+            <div class="item item-text-wrap">
+                {{toUserEmail}}
+            </div>
+            <div class="item item-divider">
+                Business Name
+            </div>
+            <div class="item item-text-wrap">
+                {{toUserBusinessName}}
+            </div>
+            <div class="item item-divider">
+                Profession
+            </div>
+            <div class="item">
+                {{professionName}}<br>
+                <img ng-src ="img\professions\{{professionImage}}" class="clinch-middle-logo">
+            </div>
+            <div class="item item-divider">
+                Location
+            </div>
+            <div class="item">
+                <img id="theMap" class="static-map">
+            </div>
+        </div>
     </ion-content>
 </ion-view>

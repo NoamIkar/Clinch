@@ -14,9 +14,8 @@
             <!--<div class="item item-divider">
                 Profession
             </div>-->
-            <div class="item item-text-wrap">
-                Before we start clinching, we need to ask you two questions.<br>
-                What is your profession?<br>What is your business about?
+            <div class="item item-divider">
+                What is your profession?
             </div>
            <label class="item item-input">
                 <!--<i class="icon "><img src="img/search icon.png" class="small-menu-button-image"></i>-->
@@ -25,7 +24,7 @@
                 <a class="button icon-right ion-arrow-right-c button-clear"></a>
             </label>
             
-            <ion-scroll  zooming="false" direction="y" style="height: 70px">
+            <ion-scroll  zooming="false" direction="y" style="height: 100px">
                     <div ng-repeat="profession in professions | filter: filterFunction | orderBy: 'professionName'">
                         <a ng-click="setSearchString(profession,$index)">{{profession.professionName}}</a>
                     </div>

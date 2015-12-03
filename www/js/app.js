@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
           navigator.globalization.getPreferredLanguage(
               function (language, $stateProvider) {
 //alert('language.value='+language.value);
-                  if (language.value === "he-IL") {
+                  /*if (language.value === "he-IL") {
                       langService.setCurrentLanguage("he");
                       globalsService.init();
                       //langService.fillStrings();
@@ -78,7 +78,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                       else
                           $state.go('rtl.intro');
                   }
-                  else {
+                  else {*/
                       langService.setCurrentLanguage("en");
                       globalsService.init();
                       //langService.fillStrings();
@@ -102,7 +102,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
 //alert('Intro wasShown false');
                           $state.go('ltr.intro');
                       }
-                  }
+                  //}
               }, function () {
                   alert('Error getting language\n');
               });

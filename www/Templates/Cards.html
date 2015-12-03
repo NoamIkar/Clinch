@@ -21,8 +21,8 @@
                     <!--<div class="item">
                         <img ng-src="img\{{clinch.image}}" class="clinch-image">
                     </div>-->
-                    <div class="item-image">
-                        <img ng-src="img\{{clinch.clinchTypeImage}}">
+                    <div>
+                        <img class="clinch-image" ng-src="img\{{clinch.clinchTypeImage}}">
                     </div>
                     
                     <div class="item item-body padding">
@@ -34,7 +34,7 @@
                     <div ng-if="clinch.fromAllProfessions == false" class="item item-text-wrap padding">
                         <!--You can clinch with: {{clinch.partnerName}}-->
                         With All {{clinch.professionName}}
-                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-middle-logo">
+                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
                     </div>
                     <div ng-if="clinch.fromAllProfessions == true" class="item item-text-wrap padding">
                         <!--You can clinch with: {{clinch.partnerName}}-->
