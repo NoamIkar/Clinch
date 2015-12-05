@@ -522,7 +522,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
         ;
 
 
-        //$urlRouterProvider.otherwise('/app/playlists');
+        $urlRouterProvider.otherwise('/clinches');
 
 
 

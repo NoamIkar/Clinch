@@ -10,45 +10,47 @@
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <div class="card">
-            <div class="item item-divider">
-                Login please
+        <form name="myForm" ng-submit="login()" novalidate>
+            <div class="card">
+                <div class="item item-divider">
+                    Login please
+                </div>
+                <div class="item item-text-wrap">
+                    Welcome to Clinch.<br>
+                    Please <a ng-click="goSignUp()" class="positive">register</a> or sign-in:<br>
+                </div>
+                <div class="list item">
+                    <!--<label class="item item-input ">-->
+                    <label class="item item-input">
+                        <i class="icon ion-android-person padding-right"><!--img src="img/User_id.png" class="small-menu-button-image"--></i>
+                        <input type="text"  placeholder="Name" name="uname" ng-model="userDetails.uname" ng-keypress="hideErrorMessage()" ng-minlength="4" ng-maxlength="12" required><!-- minlength="5" maxlength="12">-->
+                    </label>
+                    <label class="item item-input">
+                        <i class="icon ion-locked padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
+                        <input type="password"  placeholder="Password" name="password" ng-model="userDetails.password" ng-keypress="hideErrorMessage()" ng-minlength="4" ng-maxlength="12" required>
+                    </label>
+                </div>
+                <div class="padding">
+                    <!--Name or password are incorrect. Please try again.-->
+                    <p class="ng-hide assertive" ng-show="myForm.uname.$error.required && myForm.uname.$dirty && myForm.uname.$touched">* Username is required</p>
+                    <p class="ng-hide assertive" ng-show="myForm.uname.$error.minlength">* Username must be longer than 4 characters</p>
+                    <p class="ng-hide assertive" ng-show="myForm.uname.$error.maxlength">* Username must be shorter than 12 characters</p>
+                    <p class="ng-hide assertive" ng-show="myForm.password.$error.required && myForm.password.$dirty && myForm.password.$touched">* Password is required</p>
+                    <p class="ng-hide assertive" ng-show="myForm.password.$error.minlength">* Password must be longer than 4 characters</p>
+                    <p class="ng-hide assertive" ng-show="myForm.password.$error.maxlength">* Password must be shorter than 12 characters</p>
+                    <p class="ng-hide assertive" ng-show="failMessage">{{errorMessage}}</p>
+                </div>
+                <!--<div class="form-error" ng-message="required">This field is required.</div>
+                <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+                <div class="form-error" ng-message="maxlength">This field is must be less than 50 characters</div>-->
             </div>
-            <div class="item item-text-wrap">
-                Welcome to Clinch.<br>
-                Please <a ng-click="goSignUp()" class="positive">register</a> or sign-in:<br>
+            <div class="item">
+                <button class="button button-positive center-button" ng-disabled="myForm.$invalid" type="submit"><!-- ng-click="login()">-->
+                    OK
+                </button>
             </div>
-            <div class="list item">
-                <!--<label class="item item-input ">-->
-                <label class="item item-input">
-                    <i class="icon ion-android-person padding-right"><!--img src="img/User_id.png" class="small-menu-button-image"--></i>
-                    <input type="text"  placeholder="Name" ng-model="userDetails.uname" ng-keypress="hideErrorMessage()" required><!-- minlength="5" maxlength="12">-->
-                </label>
-                <label class="item item-input">
-                    <i class="icon ion-locked padding-right"><!--img src="img/Password.png" class="small-menu-button-image"--></i>
-                    <input type="password"  placeholder="Password" ng-model="userDetails.password" ng-keypress="hideErrorMessage()">
-                </label>
-
-            </div>
-            <div class="ng-hide assertive" ng-show="failMessage">
-                <!--Name or password are incorrect. Please try again.-->
-                {{errorMessage}}
-            </div>
-            <!--<div class="form-error" ng-message="required">This field is required.</div>
-            <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
-            <div class="form-error" ng-message="maxlength">This field is must be less than 50 characters</div>-->
-        </div>
-        <div class="item">
-        <button class="button button-positive center-button" ng-click="login()">
-            OK
-        </button>
-
-        </div>
-        New user ?
-        <a ng-click="goSignUp()" class="positive">
-            Please register
-        </a>
-        </div>
+            <p>New user ?<a ng-click="goSignUp()" class="positive">Please register</a></p>
+        </form>
     </ion-content>
 </ion-view>
 

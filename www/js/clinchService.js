@@ -99,6 +99,7 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
 
             return theService.clinchesIRequested;
         }
+        
         theService.getRequestedClinches = function(){
             console.log('In clinchService.getRequestedClinches- Enter');
             var user =  Parse.User.current();
@@ -166,64 +167,37 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
         theService.getActiveClinches = function(){
             console.log('In clinchService.getActiveClinches- Enter');
             var toUser =  Parse.User.current();
-            var currentUserLocation = toUser.get('location');
             
             var Clinch = Parse.Object.extend("Clinch");
             var myClinchQuery = new Parse.Query(Clinch);
-            var mySecondClinchQuery = new Parse.Query(Clinch);
+            //var mySecondClinchQuery = new Parse.Query(Clinch);
             myClinchQuery.equalTo("ToUser",toUser);
             myClinchQuery.equalTo("Status",'Accepted');
-            mySecondClinchQuery.equalTo("FromUser",toUser);
-            mySecondClinchQuery.equalTo("Status",'Accepted');
+            //mySecondClinchQuery.equalTo("FromUser",toUser);
+            //mySecondClinchQuery.equalTo("Status",'Accepted');
             
-            var query = Parse.Query.or(myClinchQuery,mySecondClinchQuery);
-            //myClinchQuery.include('ClinchType');
-            query.include('FromUser');
-            query.include('ToUser');
+            //var query = Parse.Query.or(myClinchQuery,mySecondClinchQuery);
+            myClinchQuery.include('ClinchType');
+            myClinchQuery.include('ClinchRule');
+            myClinchQuery.include('FromUser');
+            myClinchQuery.include(['FromUser.Profession']);
+            //myClinchQuery.include(['FromUser.Profession.imageFileName']);
+            //myClinchQuery.include(['FromUser.Profession.ProfessionName']);
+            //myClinchQuery.include('ToUser');
 
-            //console.log('In clinchService.getActiveClinches- Enter theService.myActiveClinches='+theService.myActiveClinches.length);
-            query.find().then(function(myActiveClinchesR){
+            //console.log('In clinchService.getActiveClinches- Enter .myActiveClinches='+.myActiveClinches.length);
+            myClinchQuery.find().then(function(myActiveClinchesR){
                 //console.log('In clinchService.getActiveClinches- Enter myActiveClinchesR='+myActiveClinchesR.length);
                 for (var i = 0; i < myActiveClinchesR.length ; i++){
                     var fromUser =  myActiveClinchesR[i].get("FromUser");
-                    var fromUserProfession = fromUser.get('Profession');
-                    var fromUserLocation = fromUser.get('location');
-                    var fromUserBusinessName = fromUser.get('BusinessName');
-                    var fromUserEmail = fromUser.get('email'); 
                     var clinchType = myActiveClinchesR[i].get('ClinchType');                   
-                    var tempClinchType = globalsService.getClinchType(clinchType.id);
-                    var tempFromUserProfession = globalsService.getProfession(fromUserProfession.id);
-                /*console.log('In clinchService.getActiveClinches- In for['+i+'] values are:\nfromUser='+fromUser+
-                                                                                     '\nfromUserProfession='+fromUserProfession+
-                                                                                     '\nfromUserLocation='+fromUserLocation+
-                                                                                     '\nfromUserBusinessName='+fromUserBusinessName+
-                                                                                     '\nfromUserEmail='+fromUserEmail+
-                                                                                     '\ntempClinchType='+tempClinchType+
-                                                                                     '\ntype='+tempClinchType.get("Title")+
-                                                                                     '\ndescription='+tempClinchType.get('ShortDescription')+
-                                                                                     '\nlongDescription='+tempClinchType.get('LongDescription')+
-                                                                                     '\nimage='+tempClinchType.get('ImageName')+
-                                                                                     '\nfromUserProfession='+fromUserProfession+
-                                                                                     '\tempFromUserProfession.id='+tempFromUserProfession.id+
-                                                                                     '\nprofessionImage='+tempFromUserProfession.get('imageFileName'));*/
-                    theService.myActiveClinches[i] = {};
-                    theService.myActiveClinches[i].index = i+1;
-                    theService.myActiveClinches[i].id = myActiveClinchesR[i].id;
-                    theService.myActiveClinches[i].objectClinchType = clinchType;
-                    theService.myActiveClinches[i].objectFromUser = fromUser;
-                    theService.myActiveClinches[i].type = tempClinchType.get("Title");
-                    if(typeof fromUserBusinessName === 'undefined' || fromUserBusinessName === null ){
-                        theService.myActiveClinches[i].partnerName = fromUser.get('username');
-                    } else {
-                        theService.myActiveClinches[i].partnerName = fromUserBusinessName;
-                    }
-                    theService.myActiveClinches[i].description = tempClinchType.get('ShortDescription');
-                    theService.myActiveClinches[i].longDescription = tempClinchType.get('LongDescription');
-                    theService.myActiveClinches[i].image = tempClinchType.get('ImageName');
-                    theService.myActiveClinches[i].professionImage = tempFromUserProfession.get('imageFileName');//fromUserProfession.get('imageFileName');
-                    theService.myActiveClinches[i].partnerLocation = fromUserLocation;
-                    theService.myActiveClinches[i].kilometersTo = Math.round(fromUserLocation.kilometersTo(currentUserLocation));
-                    theService.myActiveClinches[i].fromEmail = fromUserEmail;
+                    var clinchRule = myActiveClinchesR[i].get('ClinchRule');
+                    var clinch = buildCompleteClinch(toUser,fromUser,clinchType,clinchRule);
+                    clinch.index = i;
+                    clinch.id = myActiveClinchesR[i].id;
+                    //tempArray.push(Clinch);
+                    //theService.myActiveClinches[i] = {};
+                    theService.myActiveClinches.push(clinch);
                 }  
                 //theService.myActiveClinches = myActiveClinches;
                 //console.log('In clinchService.getActiveClinches- Enter theService.myActiveClinches='+theService.myActiveClinches.length);
@@ -355,9 +329,11 @@ theService.userListByClinch = [];
             ////////////////////////
             var fromUserId = userClinch.fromUserId;
             var clinchTypeId = selectedClinch.clinchTypeId;
+            var clinchRuleId = selectedClinch.ruleId;
             var params = {};                
             params.fromUserId = fromUserId;
             params.clinchTypeId = clinchTypeId;
+            params.clinchRuleId = clinchRuleId;
 
             return Parse.Cloud.run('requestClinch', params).then(function (result) {
                 var currentUser = Parse.User.current();
@@ -614,6 +590,30 @@ theService.userListByClinch = [];
                 Clinch.professionImage = fromProfession.get('imageFileName');
                 Clinch.professionName = fromProfession.get('ProfessionName');
                 Clinch.professionId = fromProfession.id;
+            }
+            return Clinch;
+        }
+
+        function buildCompleteClinch(toUser, fromUser, clinchType, clinchRule){
+            var fromUserProfession = fromUser.get('Profession');
+
+            var Clinch = {};
+            Clinch.clinchTypeId = clinchType.id;
+            Clinch.clinchTypeTitle = clinchType.get("Title");
+            Clinch.fromUserBusinessName = fromUser.get('BusinessName');
+            Clinch.shortDescription = clinchType.get('ShortDescription');
+            Clinch.longDescription = clinchType.get('LongDescription');
+            Clinch.clinchTypeImage = clinchType.get('ImageName');
+            Clinch.professionImage = fromUserProfession.get('imageFileName');
+            Clinch.professionName = fromUserProfession.get('ProfessionName');
+            Clinch.professionId = fromUserProfession.id;
+            Clinch.fromUserLocation = fromUser.get('location');
+            Clinch.kilometersTo = Math.round(fromUser.get('location').kilometersTo(toUser.get('location')));
+            Clinch.fromUserEmail = fromUser.get('email');
+            if(clinchRule){
+                Clinch.ruleId = clinchRule.id;
+                Clinch.ruleDescription = clinchRule.get('RuleDescription');
+                Clinch.ruleTitle = clinchRule.get('RuleTitle');  
             }
             return Clinch;
         }

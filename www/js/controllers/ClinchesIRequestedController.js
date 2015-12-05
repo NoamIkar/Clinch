@@ -91,9 +91,9 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
 
 starter.controller("ClinchesIRequestedController", function($scope, $stateParams, $ionicLoading, clinchService) {
 
-    //$scope.clinchesIRequested = clinchService.getClinchesIRequested();
+    $scope.clinchesIRequested = clinchService.getClinchesIRequested();
 
-    $scope.$on('$ionicView.enter', function () {
+    /*$scope.$on('$ionicView.enter', function () {
         //console.log('In UserListController.on- Enter');
         //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
         $ionicLoading.show({template: 'Loading...'});
@@ -113,8 +113,8 @@ starter.controller("ClinchesIRequestedController", function($scope, $stateParams
             }else{
                 $state.go('ltr.cards');
             } */
-        });
-    });  
+    /*    });
+    });  */
 
 });
 
