@@ -17,21 +17,21 @@
             <ion-item ng-repeat="clinch in clinchesIRequested" href="#/ltr/clinchirequested/{{clinch.index}}" class="card">
                 <div class="card padding">
                    <div class="item item-divider">
-                        {{clinch.type}}
+                        {{clinch.ruleTitle}}
                     </div>
                     <!--<div class="item">
                         <img ng-src="img\{{clinch.image}}" class="clinch-image">
                     </div>-->
-                    <div class="item-image">
-                        <img ng-src="img\{{clinch.image}}">
+                    <div>
+                        <img class="clinch-image" ng-src="img\{{clinch.clinchTypeImage}}">
                     </div>
                     
                     <div class="item item-body padding">
-                        {{clinch.description}}
+                        {{clinch.ruleDescription}}
                     </div>
                     <div class="item item-text-wrap padding">
-                        You can clinch with: {{clinch.partnerName}}
-                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-middle-logo">
+                        Clinch with: {{clinch.fromUserBusinessName}}
+                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
                     </div>
                     <!--img ng-src ="img\{{clinch.image}}" class="clinch-left"-->
                     <div class="item item-divider">

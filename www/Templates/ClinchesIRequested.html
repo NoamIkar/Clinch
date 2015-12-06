@@ -1,4 +1,4 @@
-<ion-view title="My Clinches">
+<ion-view title="Clinches I Requested">
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon button-clear button-small ">
             <img src="img/logo.png" class="small-menu-button-image">
@@ -15,14 +15,11 @@
         <h4  class="item-stacked-label" ng-show="!clinchesIRequested.length || clinchesIRequested.length==0">No Clinches Found</h4>
         <ion-list can-swipe="false">
             <ion-item ng-repeat="clinch in clinchesIRequested" href="#/ltr/clinchirequested/{{clinch.index}}" class="item item-avatar">
-
-
-                <img ng-src ="img\{{clinch.image}}">
-
-                <h2>{{clinch.type}}</h2>
-
-                <span>Partner: {{clinch.partnerName}}</span>
-
+                <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-left">
+                <div class="item-middle">
+                    <h2>{{clinch.ruleTitle}}</h2>
+                    <span>Partner: {{clinch.fromUserBusinessName}}</span>
+                <img ng-src ="img\professions\{{clinch.professionImage}}" class="user-image-right">
             </ion-item>
         </ion-list>
     </ion-content>

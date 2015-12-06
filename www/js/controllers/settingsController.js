@@ -5,7 +5,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("settingsController", function ($scope, $state, globalsService, langService, clinchData) {
+starter.controller("settingsController", function ($scope, $state, globalsService, langService) {
 
     $scope.showList = false;
 
@@ -23,6 +23,9 @@ starter.controller("settingsController", function ($scope, $state, globalsServic
 
 
     $scope.toggleListCards = function () {
+        var clinchData = globalsService.getClinchDataMenuSelection();
+        //alert("clinchData="+clinchData);
+        //alert("ClinchDisplayState="+globalsService.getClinchDisplayState());
         if (globalsService.getClinchDisplayState() === "cards") {
             globalsService.setClinchDisplayState("list");
             $scope.showList = true;
@@ -31,8 +34,8 @@ starter.controller("settingsController", function ($scope, $state, globalsServic
                     case "clinches":
                         $state.go('ltr.clinches');
                         break;
-                    case "myclinches":
-                        $state.go('ltr.myclinches');
+                    case "clinchesirequested":
+                        $state.go('ltr.clinchesirequested');
                         break;
                     case "requested":
                         $state.go('ltr.myrequestedclinches');
@@ -47,14 +50,14 @@ starter.controller("settingsController", function ($scope, $state, globalsServic
                     case "clinches":
                         $state.go('rtl.clinches');
                         break;
-                    case "myclinches":
-                        $state.go('rtl.myclinches');
+                    case "clinchesirequested":
+                        $state.go('rtl.clinchesirequested');
                         break;
                     case "requested":
-                        $state.go('rtl.myrequestedclinch');
+                        $state.go('rtl.myrequestedclinches');
                         break;
                     case "active":
-                        $state.go('rtl.activeclinch');
+                        $state.go('rtl.activeclinches');
                         break;
                 }
         }
@@ -67,8 +70,8 @@ starter.controller("settingsController", function ($scope, $state, globalsServic
                     case "clinches":
                         $state.go('ltr.cards');
                         break;
-                    case "myclinches":
-                        $state.go('ltr.mycards');
+                    case "clinchesirequested":
+                        $state.go('ltr.cardsirequested');
                         break;
                     case "requested":
                         $state.go('ltr.myrequestedcards');
@@ -83,8 +86,8 @@ starter.controller("settingsController", function ($scope, $state, globalsServic
                     case "clinches":
                         $state.go('rtl.cards');
                         break;
-                    case "myclinches":
-                        $state.go('rtl.mycards');
+                    case "clinchesirequested":
+                        $state.go('rtl.cardsirequested');
                         break;
                     case "requested":
                         $state.go('rtl.myrequestedcards');

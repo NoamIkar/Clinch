@@ -73,6 +73,11 @@
 .user-image-right{
     height:40px;
     width: auto;
+    float:right;
+}
+.user-image-left{
+    height:40px;
+    width: auto;
     float:left;
 }
 .clinch-middle-logo{

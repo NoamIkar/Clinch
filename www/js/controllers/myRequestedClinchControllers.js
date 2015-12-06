@@ -9,13 +9,13 @@ var starter = angular.module('starter');
 starter.controller("myRequestedClinchController", function($scope, $stateParams,  $ionicHistory, clinchService, langService) {
     $scope.clinchId = $stateParams.clinchId;
     var index = parseInt($scope.clinchId);
-    $scope.myClinch = clinchService.getRequestedClinch(index-1);
+    $scope.myClinch = clinchService.getRequestedClinch(index);
 
     //google.maps.event.addDomListener(window, 'load', function() {
     $scope.$on('$ionicView.enter', function(){
         console.log('****In myRequestedClinchController - on = ');
         var url = "https://maps.googleapis.com/maps/api/staticmap";
-        var location = "?center="+$scope.myClinch.partnerLocation.latitude +","+$scope.myClinch.partnerLocation.longitude;
+        var location = "?center="+$scope.myClinch.fromUserLocation.latitude +","+$scope.myClinch.fromUserLocation.longitude;
         var zoom = "&zoom=15";
         var size = "&size=300x160";
         var maptype = "&maptype=roadmap";
@@ -142,9 +142,32 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
 });
 
 
-starter.controller("myRequestedClinchesController", function($scope, $stateParams, clinchService) {
+starter.controller("myRequestedClinchesController", function($scope, $stateParams, $ionicLoading, clinchService) {
 
-    $scope.myrequestedclinches = clinchService.getRequestedClinches();
+    //$scope.myrequestedclinches = clinchService.getRequestedClinches();
+
+    $scope.$on('$ionicView.enter', function () {
+        //console.log('In UserListController.on- Enter');
+        //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
+        $ionicLoading.show({template: 'Loading...'});
+        clinchService.getRequestedClinches().then(function (result) {
+            //console.log('In clinchesController - Got result = '+result);
+            $scope.myrequestedclinches = result;
+            //console.log('In UserListController.on- result='+result.length);
+            $ionicLoading.hide();
+        },
+        function (error) {
+            $ionicLoading.hide();
+            console.log('In ClinchesIRequestedController - Got error = ['+error.code+'] = '+error.message);
+            //alert(error.message);
+            //to do - add error codes
+            /*if (langService.getDirection() == "rtl"){
+                $state.go('rtl.cards');
+            }else{
+                $state.go('ltr.cards');
+            } */
+        });
+    });  
 
 
 });

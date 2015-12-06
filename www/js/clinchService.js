@@ -35,8 +35,24 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
         }
 
         theService.getClinchesIRequested = function(){
-            console.log('In clinchService.getClinchesIRequested- Enter');
-            var toUser =  Parse.User.current();
+            //console.log('In clinchService.getClinchesIRequested- Enter');
+            
+            return Parse.Cloud.run('getClinchesIRequested', {}).then(
+                  function (result) {
+                    theService.clinchesIRequested = result;
+                    var successful = new Parse.Promise();
+                    successful.resolve(result);
+                    //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
+                    return successful;
+                  },
+                  function (error) {
+                    var failed = new Parse.Promise();
+                    failed.reject(error); 
+                    return failed;               
+                  }
+            );
+
+            /*var toUser =  Parse.User.current();
             var currentUserLocation = toUser.get('location');
             
             var Clinch = Parse.Object.extend("Clinch");
@@ -71,7 +87,7 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
                                                                                      '\nfromUserProfession='+fromUserProfession+
                                                                                      '\tempFromUserProfession.id='+tempFromUserProfession.id+
                                                                                      '\nprofessionImage='+tempFromUserProfession.get('imageFileName'));*/
-                    theService.clinchesIRequested[i] = {};
+              /*      theService.clinchesIRequested[i] = {};
                     theService.clinchesIRequested[i].index = i+1;
                     theService.clinchesIRequested[i].id = clinchesIRequestedR[i].id;
                     theService.clinchesIRequested[i].objectClinchType = clinchType;
@@ -97,12 +113,27 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
             });
 
 
-            return theService.clinchesIRequested;
+            return theService.clinchesIRequested;*/
         }
-        
+
         theService.getRequestedClinches = function(){
-            console.log('In clinchService.getRequestedClinches- Enter');
-            var user =  Parse.User.current();
+            //console.log('In clinchService.getRequestedClinches- Enter');
+            return Parse.Cloud.run('getRequestedClinches', {}).then(
+                  function (result) {
+                    theService.myRequestedClinches = result;
+                    var successful = new Parse.Promise();
+                    successful.resolve(result);
+                    //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
+                    return successful;
+                  },
+                  function (error) {
+                    var failed = new Parse.Promise();
+                    failed.reject(error); 
+                    return failed;               
+                  }
+            );
+
+            /*var user =  Parse.User.current();
             var currentUserLocation = user.get('location');
             
             var Clinch = Parse.Object.extend("Clinch");
@@ -162,11 +193,31 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
                 console.log('In clinchService.getRequestedClinches- Got Error:'+error);
             });
 
-            return theService.myRequestedClinches;
+            return theService.myRequestedClinches;*/
         }
         theService.getActiveClinches = function(){
-            console.log('In clinchService.getActiveClinches- Enter');
-            var toUser =  Parse.User.current();
+            //console.log('In clinchService.getActiveClinches- Enter');
+            /*var params = {};                
+            params.userLocation = userLocation;
+            params.fromAllProfessions = fromAllProfessions;
+            params.professionId = professionId;*/
+
+            return Parse.Cloud.run('getActiveClinches', {}).then(
+                  function (result) {
+                    theService.myActiveClinches = result;
+                    var successful = new Parse.Promise();
+                    successful.resolve(result);
+                    //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
+                    return successful;
+                  },
+                  function (error) {
+                    var failed = new Parse.Promise();
+                    failed.reject(error); 
+                    return failed;               
+                  }
+            );
+
+            /*var toUser =  Parse.User.current();
             
             var Clinch = Parse.Object.extend("Clinch");
             var myClinchQuery = new Parse.Query(Clinch);
@@ -205,7 +256,7 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
                 console.log('In clinchService.getActiveClinches- Got Error:'+error);
             });
 
-            return theService.myActiveClinches;
+            return theService.myActiveClinches;*/
         }
 
         theService.getUserListByClinch = function(index){

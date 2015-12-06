@@ -10,13 +10,13 @@ var starter = angular.module('starter');
 starter.controller("ClinchIRequestedController", function($scope, $stateParams, $ionicHistory, clinchService) {
     $scope.clinchId = $stateParams.clinchId;
     var index = parseInt($scope.clinchId);
-    $scope.myClinch = clinchService.getMyClinch(index-1);
+    $scope.myClinch = clinchService.getMyClinch(index);
 
     //google.maps.event.addDomListener(window, 'load', function() {
     $scope.$on('$ionicView.enter', function(){
         console.log('****In ClinchIRequestedController - on = ');
         var url = "https://maps.googleapis.com/maps/api/staticmap";
-        var location = "?center="+$scope.myClinch.partnerLocation.latitude +","+$scope.myClinch.partnerLocation.longitude;
+        var location = "?center="+$scope.myClinch.fromUserLocation.latitude +","+$scope.myClinch.fromUserLocation.longitude;
         var zoom = "&zoom=15";
         var size = "&size=300x160";
         var maptype = "&maptype=roadmap";
@@ -91,9 +91,9 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
 
 starter.controller("ClinchesIRequestedController", function($scope, $stateParams, $ionicLoading, clinchService) {
 
-    $scope.clinchesIRequested = clinchService.getClinchesIRequested();
+    //$scope.clinchesIRequested = clinchService.getClinchesIRequested();
 
-    /*$scope.$on('$ionicView.enter', function () {
+    $scope.$on('$ionicView.enter', function () {
         //console.log('In UserListController.on- Enter');
         //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
         $ionicLoading.show({template: 'Loading...'});
@@ -113,8 +113,8 @@ starter.controller("ClinchesIRequestedController", function($scope, $stateParams
             }else{
                 $state.go('ltr.cards');
             } */
-    /*    });
-    });  */
+        });
+    });  
 
 });
 

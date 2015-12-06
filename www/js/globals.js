@@ -16,6 +16,15 @@ clinchModule.factory('globalsService', function (langService) {
     theService.clinchTypeMapArray = [];
     theService.errorMessagesMap = [];
     theService.toUser = {}
+    theService.clinchDataMenuSelection = 'clinches';
+
+    theService.getClinchDataMenuSelection = function(){
+        return this.clinchDataMenuSelection;
+    }
+
+    theService.setClinchDataMenuSelection = function(clinchData){
+        this.clinchDataMenuSelection = clinchData;
+    }
 
     theService.getToUser = function()
     {

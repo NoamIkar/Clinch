@@ -12,16 +12,17 @@
     <ion-content scrollbar-x="false">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
         </ion-refresher>
+        <h4  class="item-stacked-label" ng-show="!activeclinches.length || activeclinches.length==0">No Clinches Found</h4>
         <ion-list can-swipe="false">
             <ion-item ng-repeat="clinch in activeclinches" href="#/ltr/activeclinches/{{clinch.index}}" class="change-item">            
-                    <img ng-src ="img\{{clinch.image}}" class="clinch-left">
+                    <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-left">
                     <!--<img ng-src ="img\logo.png" class="clinch-middle-logo">-->
                     <!--<a class="ion-arrow-right-c">-->
-                    <img ng-src ="img\professions\{{clinch.professionImage}}" class="user-image">
                     <div class="item-middle">
-                        <h2>{{clinch.type}}</h2>
-                        <span>Partner with: {{clinch.partnerName}}</span>
-                    </div>                    
+                        <h2>{{clinch.ruleTitle}}</h2>
+                        <span>Partner with: {{clinch.fromUserBusinessName}}</span>
+                    </div>
+                    <img ng-src ="img\professions\{{clinch.professionImage}}" class="user-image-right">
                 </ion-item>
         </ion-list>
     </ion-content>

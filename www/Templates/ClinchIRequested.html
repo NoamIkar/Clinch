@@ -16,14 +16,18 @@
     <ion-content>
         <div class="list card">
             <div class="item">
-                {{myClinch.type}}
+                {{myClinch.ruleTitle}}
             </div>
             <!--div class="item item-image"-->
             <div class="item">
-                <img ng-src="img\{{myClinch.image}}" class="clinch-image">
+                <img ng-src="img\{{myClinch.clinchTypeImage}}" class="clinch-image">
             </div>
             <div class="item item-text-wrap">
-                {{myClinch.description}}
+                {{myClinch.longDescription}}
+            </div>
+            <div class="item item-text-wrap">
+                {{myClinch.ruleDescription}}
+                <br>
             </div>
             <div class="item">
                 <img id="theMap" class="static-map">

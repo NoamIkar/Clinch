@@ -9,7 +9,7 @@
 
 var starter = angular.module('starter');
 
-starter.value("clinchData", "clinches");
+//starter.value("clinchData", "clinches");
 
 // clinchDisplayState - "list" or "cards"
 // langService.getDirection()  - "rtl" or "ltr"
@@ -31,7 +31,8 @@ starter.controller("clinchMenuController", function ($scope, $state, globalsServ
 
     //*****   Clinches
     $scope.goClinches = function () {
-        starter.value("clinchData", "clinches");
+        //starter.value("clinchData", "clinches");
+        globalsService.setClinchDataMenuSelection("clinches");
         var clinchDisplayState = globalsService.getClinchDisplayState();
 
         if (langService.getDirection() === "rtl")
@@ -50,7 +51,8 @@ starter.controller("clinchMenuController", function ($scope, $state, globalsServ
     $scope.goMyClinches = function () {
         var clinchDisplayState = globalsService.getClinchDisplayState();
 
-        starter.value("clinchData", "clinchesirequested");
+        //starter.value("clinchData", "clinchesirequested");
+        globalsService.setClinchDataMenuSelection("clinchesirequested");
 
         if (langService.getDirection() === "rtl")
             if (clinchDisplayState == "list")
@@ -69,7 +71,8 @@ starter.controller("clinchMenuController", function ($scope, $state, globalsServ
 
         var clinchDisplayState = globalsService.getClinchDisplayState();
 
-        starter.value("clinchData", "requested");
+        //starter.value("clinchData", "requested");
+        globalsService.setClinchDataMenuSelection("requested");
 
         if (langService.getDirection() === "rtl")
             if (clinchDisplayState == "list")
@@ -87,7 +90,9 @@ starter.controller("clinchMenuController", function ($scope, $state, globalsServ
 
     //*****   My Active Clinches
     $scope.goActiveClinches = function () {
-        starter.value("clinchData", "active");
+
+        //starter.value("clinchData", "active");
+        globalsService.setClinchDataMenuSelection("active");
         var clinchDisplayState = globalsService.getClinchDisplayState();
 
         if (langService.getDirection() === "rtl")

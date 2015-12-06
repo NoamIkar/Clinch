@@ -18,12 +18,12 @@
                     <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-left">
                     <!--<img ng-src ="img\logo.png" class="clinch-middle-logo">-->
                     <!--<a class="ion-arrow-right-c">-->
-                    <img ng-if="clinch.fromAllProfessions == false" ng-src ="img\professions\{{clinch.professionImage}}" class="user-image">
-                    <label ng-if="clinch.fromAllProfessions == true" class="user-image">All</label>
                     <div class="item-middle">
                         <h2>{{clinch.ruleTitle}}</h2>
                         <!--<span>Partner with: {{clinch.partnerName}}</span>-->
-                    </div>                  
+                    </div>  
+                    <img ng-if="clinch.fromAllProfessions == false" ng-src ="img\professions\{{clinch.professionImage}}" class="user-image-right">
+                    <label ng-if="clinch.fromAllProfessions == true" class="user-image-right">All</label>                
                 </ion-item>
         </ion-list>
     </ion-content>
