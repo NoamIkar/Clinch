@@ -83,9 +83,12 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
                 //Set the clinches on the scope to allow the ng-repeat on the cards.html
                 //console.log('In clinchesController Sending a fetchClinches request...');
                 //$scope.clinches = clinchService.getClinches(true);
-                
+
+
+//alert("$scope.clinches="+$scope.clinches);
+//if(!$scope.clinches){                
                 $ionicLoading.show({template: 'Loading...'});
-  
+
                 clinchService.fetchClinches().then(function (result) {
                     //console.log('In clinchesController - Got result = '+result);
                     $scope.clinches = result;
@@ -111,7 +114,7 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
                     } 
                 });
                 //$scope.$broadcast('$ionicView.beforeEnter');
-                
+  //  }
             } else {
                 // Not logged in - sign up
                 //Clean the cahce before going to Clinch view
