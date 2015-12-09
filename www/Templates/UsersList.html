@@ -17,14 +17,25 @@
     <ion-content scrollbar-x="false">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
         </ion-refresher>
-         <div align="center" ng-if="selectedClinch.fromAllProfessions == false" class="item item-text-wrap padding">
+         <div align="center" ng-if="selectedClinch.fromAllProfessions == false && !selectedClinch.isClichAdmin" class="item item-text-wrap padding">
             <!--You can clinch with: {{clinch.partnerName}}-->
             <label>Listing all {{selectedClinch.professionName}} around you</label><br>
             <img ng-src ="img\professions\{{selectedClinch.professionImage}}" class="clinch-middle-logo">
         </div>
         <ion-list can-swipe="false">
-                <ion-item ng-repeat ="user in userListByClinch" ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">
+                <ion-item ng-if="selectedClinch.isClichAdmin" class="item item-text-wrap">
+                    Clinch Professional Team will built your new web site!
+                    Call us at 052-6148969
+                </ion-item>
+                <!--<ion-item ng-repeat ="user in userListByClinch | filter:{isAccepted:false , isRequested:false}" ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">-->
+                <ion-item ng-repeat ="user in userListByClinch " ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">
                     <div>
+                        <span ng-if="user.isAccepted" class="ribbon red">
+                            A
+                        </span>
+                         <span ng-if="user.isRequested" class="ribbon red">
+                            R
+                        </span>
                         <h2>Partner with: {{user.fromUserBusinessName}}</h2>
                         {{user.kilometersTo}}KM from you
                         <!--<span>Partner with: {{clinch.partnerName}}</span>-->

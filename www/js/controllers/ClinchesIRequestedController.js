@@ -98,7 +98,7 @@ starter.controller("ClinchesIRequestedController", function($scope, $stateParams
         //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
         $ionicLoading.show({template: 'Loading...'});
         clinchService.getClinchesIRequested().then(function (result) {
-            //console.log('In clinchesController - Got result = '+result);
+            console.log('In clinchesController - Got result = '+result.length);
             $scope.clinchesIRequested = result;
             //console.log('In UserListController.on- result='+result.length);
             $ionicLoading.hide();

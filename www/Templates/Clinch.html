@@ -35,7 +35,7 @@
                 Partner with: {{userClinch.fromUserBusinessName}}
                 <img id="theMap" class="static-map">
             </div>
-            <div class="item">
+            <div class="item" ng-if="!userClinch.isRequested && !userClinch.isAccepted">
                 <button class="button button-positive center-button" ng-click="requestClinch()">
                     Request this Clinch
                 </button>

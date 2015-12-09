@@ -36,7 +36,7 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
 
         theService.getClinchesIRequested = function(){
             //console.log('In clinchService.getClinchesIRequested- Enter');
-            
+
             return Parse.Cloud.run('getClinchesIRequested', {}).then(
                   function (result) {
                     theService.clinchesIRequested = result;
@@ -264,11 +264,15 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
             var userLocation = globalsService.getToUser().get('location');
             var fromAllProfessions = clinch.fromAllProfessions;
             var professionId = clinch.professionId;
+            var clinchTypeId = clinch.clinchTypeId;
+            var ruleId = clinch.ruleId;
 
             var params = {};                
             params.userLocation = userLocation;
             params.fromAllProfessions = fromAllProfessions;
             params.professionId = professionId;
+            params.clinchTypeId = clinchTypeId;
+            params.ruleId = ruleId;
 
             return Parse.Cloud.run('getUserListByClinch', params).then(
                   function (result) {
@@ -283,25 +287,46 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
                     failed.reject(error); 
                     return failed;               
                   });
+/*
+            console.log('In clinchService.getClinchesByUserList- Enter');
+            var toUser =  Parse.User.current();
+            //var clinch = theService.clinches[index];
+            //var fromAllProfessions = clinch.fromAllProfessions;
+                      
+            
+            
 
-            //console.log('In clinchService.getClinchesByUserList- Enter');
-            /*var toUser =  Parse.User.current();
-            var clinch = theService.clinches[index];
-            var fromAllProfessions = clinch.fromAllProfessions;
-            
-            var ProfessionObject = Parse.Object.extend('Profession');
-            var fromProfessionObject = new ProfessionObject();
-            fromProfessionObject.id = clinch.professionId;
-            
-            var userQuery = new Parse.Query(Parse.User);
-            userQuery.notEqualTo('objectId',toUser.id);
-            if(!fromAllProfessions){
-                userQuery.equalTo('Profession',fromProfessionObject);
-            }
+            var existsClinches = [];
+            var Clinch = Parse.Object.extend("Clinch");
+            var clinchQuery = new Parse.Query(Clinch);
+            clinchQuery.equalTo("ToUser",toUser);
+            var ClinchTypeObject = Parse.Object.extend('ClinchType');
+            var clinchTypeObject = new ClinchTypeObject();
+            clinchTypeObject.id = clinch.clinchTypeId;
+            clinchQuery.equalTo("ClinchType",clinchTypeObject);
+            var ClinchRulesObject = Parse.Object.extend('ClinchRules');
+            var clinchRuleObject = new ClinchRulesObject();
+            clinchRuleObject.id = clinch.ruleId;
+            clinchQuery.equalTo("ClinchRule",clinchRuleObject);
+            clinchQuery.containedIn("Status",['Accepted', 'Requested']);
+            clinchQuery.find().then(function(clinchQueryR){
+                existsClinches = clinchQueryR;
+console.log('In clinchService.getClinchesByUserList- existsClinches='+existsClinches.length);
+                var userQuery = new Parse.Query(Parse.User);
+                userQuery.notEqualTo('objectId',toUser.id);
+                if(!fromAllProfessions){
+                    var ProfessionObject = Parse.Object.extend('Profession');
+                    var fromProfessionObject = new ProfessionObject();
+                    fromProfessionObject.id = clinch.professionId;
+                    userQuery.equalTo('Profession',fromProfessionObject);
+                }
+                return userQuery.find();
+            })
+            //userQuery.doesNotMatchKeyInQuery("objectId", "FromUser", innerQuery);
             //userQuery.include('Profession');
-            return userQuery.find().then(function(userUsers){
+            .then(function(userUsers){
 console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.length);
-theService.userListByClinch = [];
+//theService.userListByClinch = [];
                 for (var i = 0; i < userUsers.length ; i++){
                     var fromUserId = userUsers[i].id;
                     var fromUserProfession = userUsers[i].get('Profession');
@@ -324,6 +349,23 @@ theService.userListByClinch = [];
                         continue;
                     }
                     var kilometersTo = Math.round(fromUserLocation.kilometersTo(globalsService.getToUser().get('location')));
+                    var isRequested = false;
+                    var isAccepted = false;
+                    console.log('In clinchService.getClinchesByUserList- in loop fromUserId='+fromUserId);
+                    for(var j=0; j<existsClinches.length; j++){
+                        console.log('In clinchService.getClinchesByUserList- in loop['+j+'].FromUser='+existsClinches[j].get('FromUser').id);
+                        if(existsClinches[j].get('FromUser').id == fromUserId){
+                            console.log('In clinchService.getClinchesByUserList- in loop found match='+fromUserId);
+                            console.log('In clinchService.getClinchesByUserList- in loop existsClinches[j].get(Status)='+existsClinches[j].get('Status'));
+                            if(existsClinches[j].get('Status') == 'Requested'){
+                                console.log('isRequested TRUE!');
+                                isRequested = true;    
+                            }else if(existsClinches[j].get('Status') == 'Accepted'){
+                                console.log('isAccepted TRUE!');
+                                isAccepted = true;    
+                            }                    
+                        }
+                    }
 
                     var fromUser = {};
                     fromUser.fromUserId = fromUserId;
@@ -332,6 +374,7 @@ theService.userListByClinch = [];
                     fromUser.fromUserBusinessName = fromUserBusinessName;
                     fromUser.fromUserLocation = fromUserLocation;
                     fromUser.kilometersTo = kilometersTo;
+                    fromUser.isRequested = isRequested;
                     theService.userListByClinch.push(fromUser);                    
                 }
                 //for now till move to cloud
@@ -342,9 +385,10 @@ theService.userListByClinch = [];
                 //console.log('In clinchService.getActiveClinches- Enter theService.myActiveClinches='+theService.myActiveClinches.length);
             }, function (error){
                 console.log('In clinchService.getClinchesByUserList- Got Error:'+error.message);
-            });*/
-
-            //return theService.userListByClinch;
+            });
+//console.log('In clinchService.getClinchesByUserList- theService.userListByClinch='+theService.userListByClinch.length);
+            return theService.userListByClinch;
+            */
         }
 
         theService.requestClinch = function(clinchIndex, userClinchIndex){

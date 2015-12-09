@@ -158,7 +158,7 @@ starter.controller("myRequestedClinchesController", function($scope, $stateParam
         },
         function (error) {
             $ionicLoading.hide();
-            console.log('In ClinchesIRequestedController - Got error = ['+error.code+'] = '+error.message);
+            //console.log('In myRequestedClinchesController - Got error = ['+error.code+'] = '+error.message);
             //alert(error.message);
             //to do - add error codes
             /*if (langService.getDirection() == "rtl"){

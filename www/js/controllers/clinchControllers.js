@@ -28,6 +28,10 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
     //google.maps.event.addDomListener(window, 'load', function() {
     $scope.$on('$ionicView.enter', function () {
         //console.log('****In clinchController - on = ');
+        //console.log('In clinchesController userClinch='+$scope.userClinch);
+        //console.log('In clinchesController userClinch.isRequested='+$scope.userClinch.isRequested);
+        //console.log('In clinchesController userClinch.isAccepted='+$scope.userClinch.isAccepted);
+        //console.log('In clinchesController userClinch.logic='+(!$scope.userClinch.isRequested && !$scope.userClinch.isAccepted));
 
         var url = "https://maps.googleapis.com/maps/api/staticmap";
         //var location = "?center=32.191697,34.892365"; // Buy the Way Kfar-Saba
@@ -46,7 +50,8 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
     });
 
     $scope.requestClinch = function(){
-        clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex).then(function (result) {                    
+        clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex).then(function (result) {    
+            clinchService.getUserByClinch($stateParams.userClinchIndex).isRequested = true;                
             $ionicHistory.goBack();            
         },
         function (error) {

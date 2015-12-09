@@ -13,11 +13,15 @@
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-list can-swipe="false">
+        <!--ui-sref="{{link.Route ? link.Route: false}}"-->
             <ion-item ng-repeat="clinch in clinches" ui-sref="ltr.userslist({clinchIndex: $index})">
                 <div class="card padding"> <!--ng-class="{done: clinchFromClinch.done}"-->
                     <div class="item item-divider">
                         {{clinch.ruleTitle}}
                     </div>
+                    <span ng-if="clinch.isClichAdmin" class="ribbon blue">
+                            O
+                    </span>
                     <!--<div class="item">
                         <img ng-src="img\{{clinch.image}}" class="clinch-image">
                     </div>-->
@@ -33,7 +37,7 @@
                     </div>
                     <div ng-if="clinch.fromAllProfessions == false" class="item item-text-wrap padding">
                         <!--You can clinch with: {{clinch.partnerName}}-->
-                        With All {{clinch.professionName}}
+                        With {{clinch.professionName}}
                         <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
                     </div>
                     <div ng-if="clinch.fromAllProfessions == true" class="item item-text-wrap padding">

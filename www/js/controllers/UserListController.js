@@ -20,6 +20,8 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
     //This is for the view
     $scope.selectedClinch = clinchService.getClinch($stateParams.clinchIndex);
     $scope.clinchIndex = $stateParams.clinchIndex;
+
+    //$scope.userListByClinch = clinchService.getUserListByClinch($stateParams.clinchIndex);
     
     $scope.$on('$ionicView.enter', function () {
         //console.log('In UserListController.on- Enter');
@@ -28,6 +30,11 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
         clinchService.getUserListByClinch($stateParams.clinchIndex).then(function (result) {
             //console.log('In clinchesController - Got result = '+result);
             $scope.userListByClinch = result;
+            /*for(var i=0; i<result.length;i++){
+                console.log('In UserListController.on- result['+i+'].fromUserBusinessName='+result[i].fromUserBusinessName);
+                console.log('In UserListController.on- result['+i+'].isRequested='+result[i].isRequested);
+                console.log('In UserListController.on- result['+i+'].isAccepted='+result[i].isAccepted);
+            }*/
             //console.log('In UserListController.on- result='+result.length);
             $ionicLoading.hide();
         },
