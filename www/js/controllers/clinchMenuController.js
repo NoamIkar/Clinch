@@ -18,7 +18,7 @@ var starter = angular.module('starter');
 starter.controller("clinchMenuController", function ($scope, $state, globalsService, langService) {
 
     $scope.$watch(function(scope) {
-            return Parse.User.current()
+            return Parse.User.current();
         },
         function(newValue, oldValue ){
             if (newValue) {

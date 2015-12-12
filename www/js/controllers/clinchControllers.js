@@ -92,7 +92,14 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
 
 //alert("$scope.clinches="+$scope.clinches);
 //if(!$scope.clinches){                
-                $ionicLoading.show({template: 'Loading...'});
+                $ionicLoading.show({template: '<h2>Loading</h2><ion-spinner></ion-spinner><br><img src="img/logo.png" alt="" width="74" height="48" />',
+                                   content: 'Loading',
+                                   animation: 'fade-in',
+                                   showBackdrop: true,
+                                   maxWidth: 300,
+                                   showDelay: 0,
+                                   hideOnStateChange: true});
+
 
                 clinchService.fetchClinches().then(function (result) {
                     //console.log('In clinchesController - Got result = '+result);
@@ -134,6 +141,12 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
             }
         }
     });
+
+    $scope.goUser = function(){
+        //console.log('In clinchesController - goUser');
+        //Thought about adding Analytics here, but moved to UserListController onLoad
+ 
+    }
 
 
 

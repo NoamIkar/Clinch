@@ -14,7 +14,7 @@
         </ion-refresher>
         <ion-list can-swipe="false">
         <!--ui-sref="{{link.Route ? link.Route: false}}"-->
-            <ion-item ng-repeat="clinch in clinches" ui-sref="ltr.userslist({clinchIndex: $index})">
+            <ion-item ng-repeat="clinch in clinches" ui-sref="ltr.userslist({clinchIndex: $index})" ng-click="goUser()">
                 <div class="card padding"> <!--ng-class="{done: clinchFromClinch.done}"-->
                     <div class="item item-divider">
                         {{clinch.ruleTitle}}

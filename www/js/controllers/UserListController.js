@@ -27,6 +27,17 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
         //console.log('In UserListController.on- Enter');
         //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
         $ionicLoading.show({template: 'Loading...'});
+        var dimensions = {            
+            // Define ranges to bucket data points into meaningful segments
+            ClinchType: ''+$scope.selectedClinch.clinchTypeId,
+            ClinchRule: ''+$scope.selectedClinch.ruleId,
+            User: ''+Parse.User.current().id,
+            // Did the user filter the query?
+            Activity: 'Entered'
+        };
+        // Send the dimensions to Parse along with the 'search' event
+        Parse.Analytics.track('Clinch_Enter', dimensions);
+
         clinchService.getUserListByClinch($stateParams.clinchIndex).then(function (result) {
             //console.log('In clinchesController - Got result = '+result);
             $scope.userListByClinch = result;

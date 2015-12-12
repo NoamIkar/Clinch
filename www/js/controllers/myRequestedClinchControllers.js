@@ -129,6 +129,7 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
             clinch.set("Status", "Declined");
             clinch.save();
             alert('Clinch was Declined');
+            $ionicHistory.goBack(); 
           },
           error: function(clinch, error) {
             // Execute any logic that should take place if the save fails.

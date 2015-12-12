@@ -77,6 +77,7 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
             clinch.set("Status", "Canceled");
             clinch.save();
             alert('Clinch was canceled');
+            $ionicHistory.goBack(); 
           },
           error: function(clinch, error) {
             // Execute any logic that should take place if the save fails.
