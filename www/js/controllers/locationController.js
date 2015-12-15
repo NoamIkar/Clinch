@@ -103,7 +103,8 @@ starter.controller("locationController", function($scope, langService, clinchSer
               map.panTo(pos);
             }, function(error) {
               //handleLocationError(true, map.getCenter());
-              alert(error.message);
+              //alert(error.message);
+              globalsService.showMessage(1000);
             }, {
                         enableHighAccuracy: true
                         ,timeout : 5000

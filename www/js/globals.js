@@ -6,7 +6,7 @@
 
 var clinchModule = angular.module('globalsModule', []);
 
-clinchModule.factory('globalsService', function (langService) {
+clinchModule.factory('globalsService', function (langService, $ionicPopup) {
 
     var theService = {};
     theService.clinchDisplayState = "cards";
@@ -48,6 +48,7 @@ clinchModule.factory('globalsService', function (langService) {
         theService.fetchClinchTypes();
 //alert('globalsService.init - fetchToUser');
 //Moved fetchToUser to the login functions
+        theService.fetchErrorMessages();
         if(Parse.User.current()){
             theService.fetchToUser();
         }
@@ -218,34 +219,39 @@ clinchModule.factory('globalsService', function (langService) {
         });//end of find
     }
 
-    theService.getErrorMessage = function(errorCode, locale)
+    /*theService.getErrorMessage = function(errorCode, locale)
     {
         //console.log('In globalsService.getErrorMessage- Enter. errorCode='+errorCode+" and locale="+locale);
+        //var key = errorCode+"_"+locale;
         var key = errorCode+"_"+locale;
         return theService.errorMessagesMap[key];        
-    }
+    }*/
 
     theService.getErrorMessage = function(errorCode)
     {
         //console.log('In globalsService.getErrorMessage- Enter. errorCode='+errorCode);                
-        return theService.getErrorMessage(errorCode,langService.getCurrentLanguage());        
+        //return theService.getErrorMessage(errorCode,langService.getCurrentLanguage());        
+        return theService.errorMessagesMap[errorCode];        
     }
 
     theService.fetchErrorMessages = function()
     {
-        //console.log('In globalsService.fetchErrorMessages- Enter.');        
+        //console.log('In globalsService.fetchErrorMessages- Enter.');     
+        var locale = langService.getCurrentLanguage();
         var MessagesClass = Parse.Object.extend("Messages");
         var query = new Parse.Query(MessagesClass);
-        query.equalTo("Type", "Error");
+        //query.equalTo("Type", "Error");
+        query.containedIn("Type",['Error', 'Information']);
+        query.equalTo("Locale", locale);
         return query.find({
           success: function(results) {            
             //alert("Successfully retrieved " + results.length + " scores.");
             // Do something with the returned Parse.Object values
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
-                var key = object.get('Code')+"_"+object.get('Locale');
+                var key = object.get('Code');
                 theService.errorMessagesMap[key] = {};                
-                // console.log(object.id + ' - ' + object.get('ProfessionName'));
+            console.log(object.id + ' - ' +key +' - '+ object.get('Title'));
                 theService.errorMessagesMap[key].title = object.get('Title');
                 theService.errorMessagesMap[key].message  = object.get('Message');                
             }
@@ -263,9 +269,13 @@ clinchModule.factory('globalsService', function (langService) {
         });//end of find
     }
 
+    theService.showMessage = function(errorCode) {
+        return theService.showMessage(theService.getErrorMessage(errorCode),null,null,null);
+    }
+
     theService.showMessage = function(message, callback, title, buttonName) {
 
-        title = title || "Message";
+        /*title = title || "Message";
         buttonName = buttonName || 'OK';
 
         if(navigator.notification && navigator.notification.alert) {
@@ -281,7 +291,16 @@ clinchModule.factory('globalsService', function (langService) {
 
             alert(message);
             callback();
-        }
+        }*/
+        title = title || "Message";
+        var alertPopup = $ionicPopup.alert({
+            title: title,
+            template: message
+        });
+
+        /*alertPopup.then(function(res) {
+            console.log('Thank you for not eating my delicious ice cream cone');
+        });*/
 
     }
 

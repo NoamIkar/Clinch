@@ -10,7 +10,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("settingsPageController", function ($scope, $state, globalsService, langService, clinchData, $ionicLoading) {
+starter.controller("settingsPageController", function ($scope, $state, globalsService, langService, $ionicLoading) {
 	$scope.isToAllPropessions = false;
 	$scope.isFromAllPropessions = false;
 	$scope.toProfession = {};

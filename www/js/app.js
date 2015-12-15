@@ -104,7 +104,8 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                       }
                   //}
               }, function () {
-                  alert('Error getting language\n');
+                  //alert('Error getting language\n');
+                  globalsService.showMessage(1000);
               });
             }
 
