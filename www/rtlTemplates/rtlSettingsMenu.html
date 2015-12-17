@@ -6,17 +6,13 @@
 
 <ion-content>
     <ul class="list rtl" ng-controller = "settingsController">
-
-        <li class="item rtl"  ng-show="isConnected">
+        <li class="item"   ng-show="isConnected">
             <a menu-close ng-click="toggleListCards()">
-                <div ng-show="showList">
-עבור לתצוגת כרטיסים
-                </div>
-                <div ng-hide="showList">
-עבור לתצוגת רשימה
-                </div>
+                <div class="ng-hide" ng-show="showList">עבור לתצוגת כרטיסים</div>
+                <div class="ng-hide" ng-hide="showList">עבור לתצוגת רשימה</div>
             </a>
         </li>
+
         <li class="item rtl" ng-show="isConnected">
             <a menu-close ng-click="goSettingsPage()">
             הגדרות

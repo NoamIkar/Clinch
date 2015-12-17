@@ -9,19 +9,17 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list class="rtl">
-            <ion-item ng-repeat="clinch in myclinches" href="#/rtl/rtlmyclinches/{{clinch.index}}" class="item item-avatar-right">
-
-
-                <img ng-src ="img\{{clinch.image}}">
-
-                <h2>{{clinch.type}}</h2>
-
-            <span>
-שותף:
-                {{clinch.partnerName}}</span>
-
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
+        </ion-refresher>
+        <h4  class="item-stacked-label text-center" ng-show="!clinchesIRequested.length || clinchesIRequested.length==0">לא נמצאו קלינצים</h4>
+        <ion-list can-swipe="false" class="rtl">
+            <ion-item ng-repeat="clinch in clinchesIRequested" href="#/rtl/rtlclinchirequested/{{clinch.index}}" class="change-item">
+                <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-right">
+                <div class="item-middle text-center">
+                    <h2>{{clinch.ruleTitle_he}}</h2>
+                    <span>שותף: {{clinch.fromUserBusinessName}}</span>
+                <img ng-src ="img\professions\{{clinch.professionImage}}" class="user-image-left">
             </ion-item>
         </ion-list>
     </ion-content>

@@ -42,8 +42,17 @@ starter.controller("professionController", function ($scope, $timeout,langServic
         //console.log('In professionController - filterFunction - searchText.name='+$scope.searchText.name);
         if (typeof $scope.searchText.name == 'undefined') return false;
         if ($scope.searchText.name.length == 0) return false;
+        var elementProfessionName = '';
+        if(element && element.professionName){
+            element.professionName.trim().toUpperCase();
+        }
+        if(langService.getCurrentLanguage() === "he"){
+            if(element && element.professionName_he){
+                elementProfessionName = element.professionName_he.trim().toUpperCase();
+            }
+        }
 
-        if(element.professionName.trim().toUpperCase().search($scope.searchText.name.trim().toUpperCase())> -1){
+        if(elementProfessionName.search($scope.searchText.name.trim().toUpperCase())> -1){            
             return true;
         }else{
             return false;
@@ -55,8 +64,18 @@ starter.controller("professionController", function ($scope, $timeout,langServic
         //console.log('In professionController - filterImagesFunction - searchText.name='+$scope.searchText.name);
         if (typeof $scope.searchText.name == 'undefined') return true;
         if ($scope.searchText.name.length == 0) return true;
+        var elementProfessionName = '';
+        if(element && element.professionName){
+            element.professionName.trim().toUpperCase();
+        }
+        if(langService.getCurrentLanguage() === "he"){
+            if(element && element.professionName_he){
+                elementProfessionName = element.professionName_he.trim().toUpperCase();
+            }
+        }
 
-        if(element.professionName.trim().toUpperCase().search($scope.searchText.name.trim().toUpperCase())> -1){
+
+        if(elementProfessionName.search($scope.searchText.name.trim().toUpperCase())> -1){
             return true;
         }else{
             return false;
@@ -108,15 +127,16 @@ starter.controller("professionController", function ($scope, $timeout,langServic
 
     $scope.confirm = function()
     {
+        if(!currentProfession){
+            globalsService.showMessageByCode(1004);
+            return;
+        }
         professionService.saveProfession(currentProfession).then(function (result) {
                 $scope.goLocation();
             },function (error) {
                 //console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
-                //alert(error.message);
-                globalsService.showMessage(error,function(){},null,null);
-                return;
-                //alert("Please try again");
-                //to do - add error codes
+                //globalsService.showMessage(error,function(){},null,null);
+                globalsService.showMessageByCode(1005);
             });        
     }
 
@@ -139,16 +159,27 @@ starter.controller("professionController", function ($scope, $timeout,langServic
     {        
         //console.log('In professionController - setSearchString - profession='+profession.id);
         currentProfession = profession;
-        $scope.searchText.name = profession.professionName;
+        
+        if(langService.getCurrentLanguage() === "he"){
+            $scope.searchText.name = profession.professionName_he;
+        }else{
+            $scope.searchText.name = profession.professionName;
+        }
         $scope.refresh(index);
     }
 
     $scope.refresh = function(index){
         //console.log('In professionController - refresh. Index='+index);
+        //console.log('In professionController - count - '+$ionicSlideBoxDelegate.$getByHandle('professionsSlide').slidesCount());
         //$timeout(function(){ $scope.professions.pop(); }, 0);
-        $timeout(function(){ $ionicSlideBoxDelegate.$getByHandle('professionsSlide').update(); }, 5); 
+        $timeout(function(){ 
+            $ionicSlideBoxDelegate.$getByHandle('professionsSlide').update();
+            //console.log('In professionController - after update count - '+$ionicSlideBoxDelegate.$getByHandle('professionsSlide').slidesCount());
+        }, 5); 
         //$ionicSlideBoxDelegate.$getByHandle('professionsSlide').update(); 
-        $ionicSlideBoxDelegate.$getByHandle('professionsSlide').previous();  
+        //$ionicSlideBoxDelegate.$getByHandle('professionsSlide').previous();  
+        
+        $ionicSlideBoxDelegate.$getByHandle('professionsSlide').slide(index);
     }
 
 });

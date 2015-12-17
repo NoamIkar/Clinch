@@ -20,7 +20,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
         //reload the clinches for this user
         //console.log('In locationController Sending a reload request with FALSE...');
         //clinchService.getClinches(false);
-        globalsService.fetchToUser();
+        //globalsService.fetchToUser();
         if (langService.getDirection() == "rtl")
             $state.go('rtl.cards');
         else
@@ -50,13 +50,20 @@ starter.controller("locationController", function($scope, langService, clinchSer
         /*$ionicLoading.show({
             template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
         });*/
+        var language = {};
+        if(langService.getCurrentLanguage() === "he"){
+            language = 'iw';
+        }else{
+            language = 'en';
+        }
         
         var theDiv = document.getElementById("map");
         var mapOptions = {
             //center: new google.maps.LatLng(32.086697, 34.789748),
             zoom: 17,
             disableDefaultUI: true,
-            zoomControl: true
+            zoomControl: true,
+            language: language
         };
         
         map = new google.maps.Map(theDiv,mapOptions);
@@ -83,6 +90,17 @@ starter.controller("locationController", function($scope, langService, clinchSer
 //          infoWindow = new google.maps.InfoWindow({map: map});
 
           // Try HTML5 geolocation.
+          var myLocationObj = globalsService.getErrorMessage(3001);
+          var myLocation = {};
+          if(!myLocationObj){
+            if(langService.getCurrentLanguage() === "he"){
+                myLocation = 'העסק שלי';
+            }else{
+                myLocation = 'My Business';
+            }
+          }else{
+            myLocation = myLocationObj.title;
+          }
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var pos = {
@@ -98,7 +116,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
                 map: map,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
-                title: 'My Location'
+                title: myLocation
               });
               map.panTo(pos);
             }, function(error) {
@@ -127,7 +145,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
                 map: map,
                 draggable: true,
                 animation: google.maps.Animation.DROP,
-                title: 'My Business'
+                title: myLocation
             });
             map.panTo(event.latLng);
         });
@@ -139,8 +157,8 @@ starter.controller("locationController", function($scope, langService, clinchSer
         //infoWindow.setPosition(pos);
         //infoWindow.setContent(browserHasGeolocation ?
         alert(browserHasGeolocation ?
-                            'Error: The Geolocation service failed.' :
-                            'Error: Your browser doesn\'t support geolocation.');
+                             globalsService.showMessageByCode(1006) :
+                             globalsService.showMessageByCode(1007));
     }
 
     $scope.codeAddess = function () {
@@ -178,7 +196,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
                 });
 
           } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            globalsService.showMessageByCode(1006);
           }
         });
     }

@@ -15,7 +15,7 @@ var starter = angular.module('starter');
 //}
 
 
-starter.controller("clinchController", function ($scope, $stateParams, $ionicHistory, clinchService, langService) {
+starter.controller("clinchController", function ($scope, $stateParams, $ionicHistory, clinchService, langService, globalsService) {
     
     $scope.userClinchIndex = $stateParams.userClinchIndex;
     $scope.userClinch = clinchService.getUserByClinch($stateParams.userClinchIndex);
@@ -40,9 +40,15 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
         var size = "&size=300x160";
         var maptype = "&maptype=roadmap";
         var key = "&key=AIzaSyAWkXfBKSmL0YO5RRURIm6cfe4ouT8CJx8";
+        var language = {};
+        if(langService.getCurrentLanguage() === "he"){
+            language = '&language=iw';
+        }else{
+            language = '&language=en';
+        }
         //var sensor = "&sensor=false";
 
-        var all = url + location + zoom + size + maptype + key;
+        var all = url + location + zoom + size + maptype + key + language;
         //document.getElementById('my-image-id').src =
         //    "http://maps.google.com/staticmap?center=37.687,-122.407&zoom=8&size=450x300&maptype=terrain&key=[my key here]&sensor=false"
         document.getElementById('theMap').src = all;
@@ -55,10 +61,31 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
             $ionicHistory.goBack();            
         },
         function (error) {
-        
+            console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
+            //alert(error.message);
+            switch(error.code){                
+                case 141:
+                    switch(error.message){
+                        case 1010:
+                        case '1010':
+                            globalsService.showMessageByCode(1010);
+                            break;
+                        case 1011:
+                        case '1011':
+                            globalsService.showMessageByCode(1011);
+                            break;
+                        default:
+                            globalsService.showMessageByCode(error.message);
+                            break;
+                    }                            
+                    break;
+                default:
+                    globalsService.showMessageByCode(error.code);
+                    break;
+            } 
         });
         
-    }
+    };
 
     $scope.goBack = function()
     {
@@ -68,7 +95,7 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
 
 });
 
-starter.controller("clinchesController", function ($scope, $stateParams, clinchService, langService, $state, $ionicHistory, $ionicLoading) {
+starter.controller("clinchesController", function ($scope, $stateParams, clinchService, langService, $state, $ionicHistory, $ionicLoading, globalsService) {
     
     //console.log('In clinchesController -> function');
     $scope.$on('$ionicView.beforeEnter', function (event, toState, toParams, fromState, fromParams, error) {
@@ -92,8 +119,8 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
 
 //alert("$scope.clinches="+$scope.clinches);
 //if(!$scope.clinches){                
-                $ionicLoading.show({template: '<h2>Loading</h2><ion-spinner></ion-spinner><br><img src="img/logo.png" alt="" width="74" height="48" />',
-                                   content: 'Loading',
+                $ionicLoading.show({template: '<h2>'+globalsService.getLoadingTemplate()+'</h2><ion-spinner></ion-spinner><br><img src="img/logo.png" alt="" width="74" height="48" />',
+                                   //content: 'Loading',
                                    animation: 'fade-in',
                                    showBackdrop: true,
                                    maxWidth: 300,
@@ -108,22 +135,51 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
                 },
                 function (error) {
                     $ionicLoading.hide();
-                    console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
-                    alert(error.message);
-                    //to do - add error codes
-                    if(error.message.search("Profession")>-1){
-                        if (langService.getDirection() == "rtl"){
-                            $state.go('rtl.profession');
-                        }else{
-                            $state.go('ltr.profession');
-                        }
-                    } else if (error.message.search("Location")>-1){
-                        if (langService.getDirection() == "rtl"){
-                            $state.go('rtl.location');
-                        }else{
-                            $state.go('ltr.location');
-                        }
-                    } 
+                    handleError(error);
+                    /*console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
+                    //alert(error.message);
+                    switch(error.code){
+                        case 100:
+                            globalsService.showMessageByCode(1003);
+                            break;
+                        case 141:
+                            switch(error.message){
+                                case 1008:
+                                case '1008':
+                                    globalsService.showMessageByCode(1008);
+                                    if (langService.getDirection() == "rtl"){
+                                        $state.go('rtl.login');
+                                    }else{
+                                        $state.go('ltr.login');
+                                    }
+                                    break;
+                                case 1004:
+                                case '1004':
+                                    globalsService.showMessageByCode(1004);
+                                    if (langService.getDirection() == "rtl"){
+                                        $state.go('rtl.profession');
+                                    }else{
+                                        $state.go('ltr.profession');
+                                    }
+                                    break;
+                                case 1009:
+                                case '1009':
+                                    globalsService.showMessageByCode(1009);
+                                    if (langService.getDirection() == "rtl"){
+                                        $state.go('rtl.location');
+                                    }else{
+                                        $state.go('ltr.location');
+                                    }
+                                    break;
+                                default:
+                                    globalsService.showMessageByCode(error.message);
+                                    break;
+                            }                            
+                            break;
+                        default:
+                            globalsService.showMessageByCode(1000);
+                            break;
+                    } */
                 });
                 //$scope.$broadcast('$ionicView.beforeEnter');
   //  }
@@ -153,19 +209,67 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
     $scope.doRefresh = function() {
         //console.log('In clinchesController - doRefresh');
         
-        $ionicLoading.show({template: 'Loading...'});
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         clinchService.fetchClinches().then(function (result) {
             //console.log('In doRefresh - Got result = '+result.length);
             $scope.clinches = result;
         },
         function (error) {
-            console.log('In clinchesController - Got error = '+error.message);
-            alert(error.message);
+            //console.log('In clinchesController - Got error = '+error.message);
+            //alert(error.message);
+            handleError(error);
         });         
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');         
         $ionicLoading.hide();
       };
+
+      handleError = function(error){
+        console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
+        //alert(error.message);
+        switch(error.code){
+            case 100:
+                globalsService.showMessageByCode(1003);
+                break;
+            case 141:
+                switch(error.message){
+                    case 1008:
+                    case '1008':
+                        globalsService.showMessageByCode(1008);
+                        if (langService.getDirection() == "rtl"){
+                            $state.go('rtl.login');
+                        }else{
+                            $state.go('ltr.login');
+                        }
+                        break;
+                    case 1004:
+                    case '1004':
+                        globalsService.showMessageByCode(1004);
+                        if (langService.getDirection() == "rtl"){
+                            $state.go('rtl.profession');
+                        }else{
+                            $state.go('ltr.profession');
+                        }
+                        break;
+                    case 1009:
+                    case '1009':
+                        globalsService.showMessageByCode(1009);
+                        if (langService.getDirection() == "rtl"){
+                            $state.go('rtl.location');
+                        }else{
+                            $state.go('ltr.location');
+                        }
+                        break;
+                    default:
+                        globalsService.showMessageByCode(error.message);
+                        break;
+                }                            
+                break;
+            default:
+                globalsService.showMessageByCode(error.code);
+                break;
+        } 
+      }
 });
 
 

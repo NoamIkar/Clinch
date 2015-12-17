@@ -15,6 +15,9 @@
         <ion-list can-swipe="false">
                 <!--<ion-item class="change-item" ng-repeat ="clinch in clinches track by $index" href="#/ltr/clinches/{{clinch.$index}}">-->
                 <ion-item class="change-item" ng-repeat ="clinch in clinches" ui-sref="ltr.userslist({clinchIndex: $index})">
+                    <span ng-if="clinch.isClichAdmin" class="ribbon blue">
+                            O
+                    </span>
                     <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-left">
                     <!--<img ng-src ="img\logo.png" class="clinch-middle-logo">-->
                     <!--<a class="ion-arrow-right-c">-->

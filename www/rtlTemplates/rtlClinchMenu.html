@@ -4,10 +4,9 @@
     </div>
 </div>
 
-
-<ul class="list" ng-controller="clinchMenuController">
-    <li class="item"   ng-show="isConnected">
-        <a menu-close ng-click="goClinches()">
+<ul class="list" ng-controller="clinchMenuController" class="text-center">
+    <li class="item"   ng-show="isConnected" class="text-center">
+        <a menu-close ng-click="goClinches()" class="text-center">
             צפה בקלינצ'ים
         </a>
     </li>
@@ -29,6 +28,8 @@
         </a>
     </li>
     <li class="item" ng-show="isConnected">
-הפרופיל שלי
+        <a menu-close ng-click="goMyProfile()">
+            הפרופיל שלי
+        </a>
     </li>
 </ul>

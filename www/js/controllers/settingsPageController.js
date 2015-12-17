@@ -19,6 +19,11 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
     $scope.toProfessions = [];
     $scope.fromProfessions = [];
     $scope.clinchTypes = [];
+    $scope.ruleText = {};
+    $scope.ruleText.ruleTitle = ''; 
+    $scope.ruleText.ruleTitle_he = ''; 
+    $scope.ruleText.ruleDescription = ''; 
+    $scope.ruleText.ruleDescription_he = ''; 
     $scope.clinchTypeId = 'fHkl03bZH0';
 
     $scope.$on('$ionicView.beforeEnter', function (event, toState, toParams, fromState, fromParams, error) {
@@ -27,7 +32,7 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
             console.log('In settingsPageController GOT ERROR='+error);
         }
         if($scope.toProfessions.length<=0 && $scope.fromProfessions.length<=0){
-	        $ionicLoading.show({template: 'Loading...'});
+	        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
 			//console.log('In settingsPageController - enter = $scope.toProfessions.length'+$scope.toProfessions.length);
 	        $scope.toProfessions = globalsService.getAllProfessions();
 	        $scope.fromProfessions = globalsService.getAllProfessions();
@@ -99,8 +104,12 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
 		console.log('In settingsPageController -> createClinchRule. FromProfession='+this.fromProfession.professionName);
 		console.log('In settingsPageController -> createClinchRule. ToProfession='+this.toProfession.professionName);
 		console.log('In settingsPageController -> createClinchRule. clinchTypeId='+this.clinchTypeId);*/
-		console.log('In settingsPageController -> createClinchRule. clinchType.='+globalsService.getClinchType(this.clinchTypeId));
-		console.log('In settingsPageController -> createClinchRule. clinchType.name='+globalsService.getClinchType(this.clinchTypeId).name);
+		//console.log('In settingsPageController -> createClinchRule. clinchType.='+globalsService.getClinchType(this.clinchTypeId));
+		//console.log('In settingsPageController -> createClinchRule. clinchType.name='+globalsService.getClinchType(this.clinchTypeId).name);
+        console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle='+$scope.ruleText.ruleTitle);
+        console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle_he='+$scope.ruleText.ruleTitle_he);
+        console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription='+$scope.ruleText.ruleDescription);
+        console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription_he='+$scope.ruleText.ruleDescription_he);
 
 		var ClinchRules = Parse.Object.extend("ClinchRules");
         var clinchRule = new ClinchRules();
@@ -109,6 +118,42 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
         
         clinchRule.set("ToAllProfessions", this.isToAllPropessions);
         clinchRule.set("FromAllProfessions", this.isFromAllPropessions);
+        if(typeof $scope.ruleText.ruleTitle === 'undefined' || 
+            $scope.ruleText.ruleTitle === null ||
+            $scope.ruleText.ruleTitle.trim().length ==0){
+                var message = 'English Rule Title is empty.\nPlease set Rule Title';
+                console.log(message);
+                alert(message);
+                return;
+        }
+        clinchRule.set("RuleTitle", $scope.ruleText.ruleTitle);
+        if(typeof $scope.ruleText.ruleTitle_he === 'undefined' || 
+            $scope.ruleText.ruleTitle_he === null ||
+            $scope.ruleText.ruleTitle_he.trim().length ==0){
+                var message = 'Hebrew Rule Title is empty.\nPlease set Rule Title';
+                console.log(message);
+                alert(message);
+                return;
+        }
+        clinchRule.set("RuleTitle_he", $scope.ruleText.ruleTitle_he);
+        if(typeof $scope.ruleText.ruleDescription === 'undefined' || 
+            $scope.ruleText.ruleDescription === null ||
+            $scope.ruleText.ruleDescription.trim().length ==0){
+                var message = 'English Rule Description is empty.\nPlease set Rule Description';
+                console.log(message);
+                alert(message);
+                return;
+        }
+        clinchRule.set("RuleDescription", $scope.ruleText.ruleDescription);
+        if(typeof $scope.ruleText.ruleDescription_he === 'undefined' || 
+            $scope.ruleText.ruleDescription_he === null ||
+            $scope.ruleText.ruleDescription_he.trim().length ==0){
+                var message = 'Hebrew Rule Description is empty.\nPlease set Rule Description';
+                console.log(message);
+                alert(message);
+                return;
+        }
+        clinchRule.set("RuleDescription_he", $scope.ruleText.ruleDescription_he);
 
         if(!this.isToAllPropessions){
         	if(typeof tempToProfession === 'undefined' || tempToProfession === null){

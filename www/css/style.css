@@ -91,6 +91,11 @@
     width: auto;
     float:left;
 }
+.clinch-right{
+    height:40px;
+    width: auto;
+    float:right;
+}
 .item-middle{
     width:150px;
     padding-left:20px;

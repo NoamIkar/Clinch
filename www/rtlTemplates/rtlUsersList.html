@@ -1,43 +1,37 @@
-<ion-view title="Select Partner" hide-back-button="false">
+<ion-view title="בחר קלינצ'ר" hide-back-button="false">
     <ion-nav-buttons side="left">
-        <button class="button-icon ion-arrow-left-c" ng-click="goBack()">            
-        </button>
-    </ion-nav-buttons>
-    <!--<ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon button-clear button-small ">
-            <img src="img/logo.png" class="small-menu-button-image">
-        </button>
-    </ion-nav-buttons>-->
-    <ion-nav-buttons side="right">
-        <button menu-toggle="right" class="button button-icon button-clear ">
             <img src="img/settings.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-   
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-arrow-right-c" ng-click="goBack()">            
+        </button>
+    </ion-nav-buttons>
     <ion-content scrollbar-x="false">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()" class="text-center">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
         </ion-refresher>
          <div align="center" ng-if="selectedClinch.fromAllProfessions == false && !selectedClinch.isClichAdmin" class="item item-text-wrap padding">
             <!--You can clinch with: {{clinch.partnerName}}-->
-            <label>Listing all {{selectedClinch.professionName}} around you</label><br>
+            <label>מציג את כל {{selectedClinch.professionName_he}} סביבך</label><br>
             <img ng-src ="img\professions\{{selectedClinch.professionImage}}" class="clinch-middle-logo">
         </div>
         <ion-list can-swipe="false">
                 <ion-item ng-if="selectedClinch.isClichAdmin" class="item item-text-wrap">
-                    Clinch Professional Team will built your new web site!
-                    Call us at 052-6148969
+                    צוות קלינץ יבנה את האתר החדש שלך.
+                    צור קשר עם קלניץ ב- 052-6148969
                 </ion-item>
                 <!--<ion-item ng-repeat ="user in userListByClinch | filter:{isAccepted:false , isRequested:false}" ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">-->
-                <ion-item ng-repeat ="user in userListByClinch " ui-sref="ltr.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">
+                <ion-item ng-repeat ="user in userListByClinch " ui-sref="rtl.clinch({clinchIndex : clinchIndex , userClinchIndex: $index})">
                     <div>
                         <span ng-if="user.isAccepted" class="ribbon red">
-                            A
+                            א
                         </span>
                          <span ng-if="user.isRequested" class="ribbon red">
-                            R
+                            ב
                         </span>
-                        <h2>Partner with: {{user.fromUserBusinessName}}</h2>
-                        {{user.kilometersTo}}KM from you
+                        <h2 class="text-right">קלינץ עם: {{user.fromUserBusinessName}}</h2>
+                        <h2 class="text-right">ק"מ{{user.kilometersTo}} ממך </h2>
                         <!--<span>Partner with: {{clinch.partnerName}}</span>-->
                     </div>                  
                 </ion-item>

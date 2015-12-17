@@ -9,23 +9,39 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="clinch in activeclinches" href="#/rtl/rtlactiveclinches/{{clinch.id}}" class="card">
-
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()">
+        </ion-refresher>
+        <h4  class="item-stacked-label text-center" ng-show="!activeclinches.length || activeclinches.length==0">לא נמצאו קלינצ'ים</h4>
+        <ion-list can-swipe="false">
+            <ion-item ng-repeat="clinch in activeclinches" href="#/rtl/rtlactiveclinches/{{clinch.index}}" class="card">
 
                 <div class="card rtl">
+
+                <!--<div class="card padding">-->
                     <div class="item item-divider">
-                        {{clinch.type}}
+                        {{clinch.ruleTitle_he}}
                     </div>
-                    <div class="item item-image">
-                        <img src="img/{{clinch.image}}">
+                    <!--<div class="item">
+                        <img ng-src="img\{{clinch.image}}" class="clinch-image">
+                    </div>-->
+                    <div>
+                        <img class="clinch-image" ng-src="img\{{clinch.clinchTypeImage}}">
                     </div>
-                    <div class="item item-text-wrap">
-                        {{clinch.description}}
+                    
+                    <div class="item item-body padding">
+                        {{clinch.ruleDescription_he}}
+                    </div>
+                    <div class="item item-text-wrap padding">
+                        Clinch with: {{clinch.fromUserBusinessName}}
+                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
+                    </div>
+                    <!--img ng-src ="img\{{clinch.image}}" class="clinch-left"-->
+                    <div class="item item-divider">
+                        <!--<span>Partner: {{clinch.partnerName}}</span><br>-->
+                        {{clinch.kilometersTo}}  ק"מ ממך
                     </div>
                 </div>
-
 
             </ion-item>
         </ion-list>

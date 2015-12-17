@@ -114,6 +114,7 @@ clinchModule.factory('globalsService', function (langService, $ionicPopup) {
                 theService.professionMapArray[ind].id = object.id;
                 theService.professionMapArray[ind].index = ind;
                 theService.professionMapArray[ind].professionName = object.get('ProfessionName');
+                theService.professionMapArray[ind].professionName_he = object.get('ProfessionName_he');
                 theService.professionMapArray[ind].imageFileName  = object.get('imageFileName');
                 ind++;
             }
@@ -269,12 +270,35 @@ clinchModule.factory('globalsService', function (langService, $ionicPopup) {
         });//end of find
     }
 
-    theService.showMessage = function(errorCode) {
-        return theService.showMessage(theService.getErrorMessage(errorCode),null,null,null);
+    theService.showMessageByCode = function(errorCode) {
+        //var title = 'Message';
+        var error = theService.getErrorMessage(errorCode);
+        if(!error){
+            error = theService.getErrorMessage(1000);
+        }
+        if(!error){
+            error = {};
+            if(langService.getCurrentLanguage() === "he"){
+                error.message = 'שגיאה כללית. אנא צור קשר עם שירות הלקוחות לטיפול בבעיה';
+                error.title = 'שגיאה כללית';
+            }else{
+                error.message = 'General Error, please contact your system administrator';
+                error.title = 'General Error';
+            }
+
+        }
+        var buttonName = 'OK';
+        //console.log("Current lang=>"+langService.getCurrentLanguage());
+        if(langService.getCurrentLanguage() === "he"){
+            //title = 'הודעה';
+            buttonName = 'אוקי';
+        }
+        theService.showMessage(error.message,function(){},error.title,buttonName);
     }
 
+    
     theService.showMessage = function(message, callback, title, buttonName) {
-
+//console.log("Entered 2 - message:"+message+" callback:"+callback+" title:"+title+" buttonName:"+buttonName);
         /*title = title || "Message";
         buttonName = buttonName || 'OK';
 
@@ -293,15 +317,62 @@ clinchModule.factory('globalsService', function (langService, $ionicPopup) {
             callback();
         }*/
         title = title || "Message";
-        var alertPopup = $ionicPopup.alert({
+        /*var alertPopup = $ionicPopup.alert({
             title: title,
             template: message
-        });
+        });*/
+        var myPopup = $ionicPopup.show({
+            //template: '<input type="password" ng-model="data.wifi">',
+            template: message,
+            title: title,
+            cssClass: 'text-center',
+            //subTitle: 'Please use normal things',
+            //scope: $scope,
+            buttons: [
+              //{ text: 'Cancel' },
+              {
+                text: '<b>'+buttonName+'</b>',
+                type: 'button-positive',
+                onTap: function(e) {
+                  callback;
+                }
+              }
+            ]
+          });
+
+          myPopup.then(function(res) {
+            //console.log('Tapped!', res);
+          });
 
         /*alertPopup.then(function(res) {
             console.log('Thank you for not eating my delicious ice cream cone');
         });*/
 
+    }
+
+    theService.getLoadingTemplate = function() {
+        
+        //console.log("Current lang=>"+langService.getCurrentLanguage());
+        var template = 'Loading...';
+        var loadTemplate = theService.getErrorMessage(3000);
+        //console.log('loadTemplate='+loadTemplate);
+        if(loadTemplate){
+            template = loadTemplate.title;
+        }else{
+            if(langService.getCurrentLanguage() === "he"){
+                template = '...טוען';
+            }
+        }
+        //console.log('template='+template);
+        return template;
+          /*  {template: '<h2>Loading</h2><ion-spinner></ion-spinner><br><img src="img/logo.png" alt="" width="74" height="48" />',
+               content: 'Loading',
+               animation: 'fade-in',
+               showBackdrop: true,
+               maxWidth: 300,
+               showDelay: 0,
+               hideOnStateChange: true};
+        */
     }
 
     return theService;

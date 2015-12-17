@@ -21,7 +21,7 @@ starter.controller("loginController", function($scope, langService, $state, clin
     $scope.login = function()
     {
         //console.log('In loginController LOGIN...');
-        $ionicLoading.show({template: 'Loading...'});
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         Parse.User.logIn($scope.userDetails.uname, $scope.userDetails.password, {
             success: function (user) {
                 $ionicLoading.hide();
@@ -29,8 +29,10 @@ starter.controller("loginController", function($scope, langService, $state, clin
                 $scope.goClinches();
             },
             error: function (user, error) {
+                //console.log('In loginController error code='+error.code);
                 $scope.failMessage = true;
-                $scope.errorMessage = error.message && error.message[0].toUpperCase() + error.message.slice(1);
+                //$scope.errorMessage = error.message && error.message[0].toUpperCase() + error.message.slice(1);
+                globalsService.showMessageByCode(1001);
                 $ionicLoading.hide();
             }
         });

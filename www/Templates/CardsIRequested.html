@@ -10,9 +10,9 @@
         </button>
     </ion-nav-buttons>
     <ion-content scrollbar-x="false">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()" class="text-center">
         </ion-refresher>
-        <h4  class="item-stacked-label" ng-show="!clinchesIRequested.length || clinchesIRequested.length==0">No Clinches Found</h4>
+        <h4  class="item-stacked-label text-center" ng-show="!clinchesIRequested.length || clinchesIRequested.length==0">No Clinches Found</h4>
         <ion-list can-swipe="false">
             <ion-item ng-repeat="clinch in clinchesIRequested" href="#/ltr/clinchirequested/{{clinch.index}}" class="card">
                 <div class="card padding">

@@ -9,33 +9,46 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="clinch in clinches" href="#/rtl/rtlclinches/{{clinch.id}}" class="card">
-
-
-                <div class="card rtl">
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
+        </ion-refresher>
+        <ion-list can-swipe="false">
+            <ion-item ng-repeat="clinch in clinches" ui-sref="rtl.userslist({clinchIndex: $index})" ng-click="goUser()">
+                <div class="card rtl"> <!--ng-class="{done: clinchFromClinch.done}"-->
                     <div class="item item-divider">
-                        {{clinch.type}}
+                        {{clinch.ruleTitle_he}}
                     </div>
-                    <div class="item item-image">
-                        <img src="img\{{clinch.image}}">
+                    <span ng-if="clinch.isClichAdmin" class="ribbon blue">
+                            א
+                    </span>
+                    <!--<div class="item">
+                        <img ng-src="img\{{clinch.image}}" class="clinch-image">
+                    </div>-->
+                    <div>
+                        <img class="clinch-image" ng-src="img\{{clinch.clinchTypeImage}}">
                     </div>
-                    <div class="item item-text-wrap">
-                        {{clinch.description}}
+                    
+                    <div class="item item-body padding">
+                        {{clinch.shortDescription_he}}
                     </div>
-                    <div class="item item-text-wrap">
-                        אתה יכול להתחבר עם:
+                    <div class="item item-body padding">
+                        {{clinch.ruleDescription_he}}
+                    </div>
+                    <div ng-if="clinch.fromAllProfessions == false" class="item item-text-wrap padding">
+                        <!--You can clinch with: {{clinch.partnerName}}-->
+                        עם {{clinch.professionName_he}}
+                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
+                    </div>
+                    <div ng-if="clinch.fromAllProfessions == true" class="item item-text-wrap padding">
+                        <!--You can clinch with: {{clinch.partnerName}}-->
+                        עם כל בעלי המקצוע
                     </div>
                     <!--img ng-src ="img\{{clinch.image}}" class="clinch-left"-->
-                    <div class="item-middle">
-
-                        <span>שותף: {{clinch.partnerName}}</span><br>
-                        נמצא XYZ ק"מ ממך.
-                    </div>
-                    <img ng-src ="img\professions\{{clinch.professionImage}}" class="user-image">
+                    <!--<div class="item item-divider">-->
+                        <!--<span>Partner: {{clinch.partnerName}}</span><br>-->
+                        <!--{{clinch.kilometersTo}} KM from you.          
+                    </div>-->
                 </div>
-
             </ion-item>
         </ion-list>
     </ion-content>

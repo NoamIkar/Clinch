@@ -15,6 +15,14 @@ starter.controller("signUpController", function ($scope, langService, $state) {
     /*$scope.$on('$ionicView.enter', function () {
         var i=5;
     });*/
+    $scope.$on('$ionicView.enter', function () {
+        //console.log('In loginController cleaning cache');
+        //$ionicHistory.clearCache();
+        //$ionicHistory.clearHistory();
+        //$scope.userDetails = {};
+        $scope.errorMesage = '';
+    });
+
     $scope.signUp = function () {
 
         var user = new Parse.User();
@@ -30,7 +38,8 @@ starter.controller("signUpController", function ($scope, langService, $state) {
             error: function (user, error) {
                 // Show the error message somewhere and let the user try again.
                 //alert("Error: " + error.code + " " + error.message);
-                $scope.errorMesage = error.message;
+                //$scope.errorMesage = error.message;
+                $scope.errorMesage = globalsService.showMessageByCode(1002);
                 $scope.showError = true;
             }
         });

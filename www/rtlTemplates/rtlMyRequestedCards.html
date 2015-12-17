@@ -9,25 +9,36 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="clinch in myrequestedclinches" href="#/rtl/rtlmyrequestedclinches/{{clinch.id}}" class="card">
-
-
-                <div class="card rtl">
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
+        </ion-refresher>
+        <h4  class="item-stacked-label text-center" ng-show="!myrequestedclinches.length || myrequestedclinches.length==0">לא נמצאו קלינצים</h4>
+        <ion-list can-swipe="false">
+            <ion-item ng-repeat="clinch in myrequestedclinches" href="#/rtl/rtlmyrequestedclinches/{{clinch.index}}" class="change-item">            
+                <div class="card rtl padding">
                     <div class="item item-divider">
-                        {{clinch.type}}
+                        {{clinch.ruleTitle_he}}
                     </div>
-                    <div class="item item-image">
-                        <img src="img/{{clinch.image}}">
+                    <!--<div class="item">
+                        <img ng-src="img\{{clinch.image}}" class="clinch-image">
+                    </div>-->
+                    <div>
+                        <img ng-src="img\{{clinch.clinchTypeImage}}" class="clinch-image">
                     </div>
-                    <div class="item item-text-wrap">
-                        {{clinch.description}}
+                    
+                    <div class="item item-body padding">
+                        {{clinch.ruleDescription_he}}
                     </div>
-                </div>
-
-
+                    <div class="item item-text-wrap padding">
+                        קלינץ עם: {{clinch.fromUserBusinessName}}
+                        <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
+                    </div>
+                    <!--img ng-src ="img\{{clinch.image}}" class="clinch-left"-->
+                    <div class="item item-divider">
+                        <!--<span>Partner: {{clinch.partnerName}}</span><br>-->
+                         ק"מ ממך {{clinch.kilometersTo}}          
+                    </div>
+                </div>                                    
             </ion-item>
-        </ion-list>
     </ion-content>
 </ion-view>

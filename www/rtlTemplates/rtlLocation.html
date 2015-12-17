@@ -11,22 +11,23 @@
     </ion-nav-buttons>
     <ion-content class="rtl">
 
-        <div class="item">
-            ועוד שאלה אחרונה:
-            <br>
-            מאין פועל העסק שלך ?
+        <div class="item">            
+            מאין פועל העסק שלך?
             <br>
         </div>
         <label class="item item-input rtl">
-            <i class="icon  placeholder-icon ion-ios-world"><img src="img/icon-world.png" class="small-menu-button-image"></i>
-            <input type="text" placeholder="המיקום שלך">
+            <i>
+                <img src="img/icon-world.png" class="small-menu-button-image" />
+            </i>
+            <input id="address" type="text" placeholder="המיקום שלך" ng-click="codeAddess()">
+            <a class="button icon-left ion-arrow-left-c button-clear"></a>
         </label>
-        <br>
+       
         <div id="map" class="item static-map" style="height:300px;" data-tap-disabled="true"></div>
 
         <div class="item">
         <button class="button button-positive center-button rtl" ng-click="saveLocation()">
-אשר מיקום
+            שמור מיקום
         </button>
         </div>
     </ion-content>

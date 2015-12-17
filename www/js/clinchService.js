@@ -440,8 +440,10 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
                 params.fromUserBusinessName = userClinch.fromUserBusinessName;
                 params.currentUserBusinessName = currentUserBusinessName;
                 params.ruleTitle = selectedClinch.ruleTitle;
+                params.ruleTitle_he = selectedClinch.ruleTitle_he;
                 params.kilometersTo = userClinch.kilometersTo;
                 params.longDescription = selectedClinch.longDescription;
+                params.longDescription_he = selectedClinch.longDescription_he;
                 params.toUserEmail = toUserEmail;
                 params.fromUserEmail = userClinch.fromUserEmail;
                 params.langDirection = langService.getDirection();
@@ -450,9 +452,11 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
 
                     //theService.clinches = result;
                     //alert("Thank you. Your Clinch Request was submitted successfully.");
-                    var message = "Thank you. Your Clinch Request was submitted successfully.";
+                    //var message = "Thank you. Your Clinch Request was submitted successfully.";
 
-                    globalsService.showMessage(message,function(){},null,null);
+                    //globalsService.showMessage(message,function(){},null,null);
+                    globalsService.showMessageByCode(3002);
+
                     var successful = new Parse.Promise();
                     successful.resolve(result);
                     //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
@@ -495,6 +499,86 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
         
         }
 
+        theService.acceptClinch = function(clinchIndex){
+            var selectedClinch = theService.myRequestedClinches(clinchIndex);
+            var Clinch = Parse.Object.extend("Clinch");
+            var clinch = new Parse.Query(Clinch);
+            return clinch.get(selectedClinch.id).then( function (clinch) {
+                // Execute any logic that should take place after the object is saved.
+                clinch.set("Status", "Accepted");
+                return clinch.save();
+            }).then (function (clinch){
+                var currentUser = Parse.User.current();
+                var currentUserBusinessName = currentUser.get('BusinessName');
+                var toUserEmail = currentUser.get('email');
+                
+                var params = {};                
+                params.messageCode = 2001;
+                params.fromUserBusinessName = selectedClinch.fromUserBusinessName;
+                params.currentUserBusinessName = currentUserBusinessName;
+                params.ruleTitle = selectedClinch.ruleTitle;
+                params.ruleTitle_he = selectedClinch.ruleTitle_he;
+                params.kilometersTo = selectedClinch.kilometersTo;
+                params.longDescription = selectedClinch.longDescription;
+                params.longDescription_he = selectedClinch.longDescription_he;
+                params.toUserEmail = toUserEmail;
+                params.fromUserEmail = selectedClinch.fromUserEmail;
+                params.langDirection = langService.getDirection();
+                return theService.sendMail(params);
+            }).then(function (result) {
+                    var successful = new Parse.Promise();
+                    successful.resolve(result);
+                    //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
+                    return successful;
+                  },
+                  function (error) {
+                    var failed = new Parse.Promise();
+                    failed.reject(error); 
+                    return failed;               
+                  }
+            );
+        }
+
+        theService.declineClinch = function(clinchIndex){
+            var selectedClinch = theService.myRequestedClinches(clinchIndex);
+            var Clinch = Parse.Object.extend("Clinch");
+            var clinch = new Parse.Query(Clinch);
+            return clinch.get(selectedClinch.id).then( function (clinch) {
+                // Execute any logic that should take place after the object is saved.
+                clinch.set("Status", "Declined");
+                return clinch.save();
+            }).then (function (clinch){
+                var currentUser = Parse.User.current();
+                var currentUserBusinessName = currentUser.get('BusinessName');
+                var toUserEmail = currentUser.get('email');
+                
+                var params = {};                
+                params.messageCode = 2002;
+                params.fromUserBusinessName = selectedClinch.fromUserBusinessName;
+                params.currentUserBusinessName = currentUserBusinessName;
+                params.ruleTitle = selectedClinch.ruleTitle;
+                params.ruleTitle_he = selectedClinch.ruleTitle_he;
+                params.kilometersTo = selectedClinch.kilometersTo;
+                params.longDescription = selectedClinch.longDescription;
+                params.longDescription_he = selectedClinch.longDescription_he;
+                params.toUserEmail = toUserEmail;
+                params.fromUserEmail = selectedClinch.fromUserEmail;
+                params.langDirection = langService.getDirection();
+                return theService.sendMail(params);
+            }).then(function (result) {
+                    var successful = new Parse.Promise();
+                    successful.resolve(result);
+                    //console.log('In clinchService fetchClinches. Got result = '+result.length+' records.');
+                    return successful;
+                  },
+                  function (error) {
+                    var failed = new Parse.Promise();
+                    failed.reject(error); 
+                    return failed;               
+                  }
+            );
+        }
+
 
 
         theService.getClinch = function (index) {
@@ -529,7 +613,7 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
                     //console.log('In clinchController - requestClinch - got error...'+error);
                     var failed = new Parse.Promise();
                     failed.reject(error);
-                    alert("Got Error:"+error); 
+                    //alert("Got Error:"+error); 
                     return failed;               
                   }
             );

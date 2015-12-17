@@ -48,11 +48,11 @@ professionModule.factory('professionService', function ($q, globalsService) {
     {
 
         if(!profession){
-            var message = "Please select a profession.";
+            //globalsService.showMessageByCode(1004);
             //globalsService.showMessage(message,function(){},null,null);
             //return;
             var failed = new Parse.Promise();
-            failed.reject(message); 
+            failed.reject(1004); 
             return failed;
         }
         //professionService.saveProfession(profession.index);

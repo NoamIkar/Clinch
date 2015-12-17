@@ -15,7 +15,7 @@ var starter = angular.module('starter');
 //}
 
 
-starter.controller("UserListController", function ($scope, $stateParams, $ionicHistory, $state, $ionicLoading, clinchService, langService) {
+starter.controller("UserListController", function ($scope, $stateParams, $ionicHistory, $state, $ionicLoading, clinchService, langService, globalsService) {
     
     //This is for the view
     $scope.selectedClinch = clinchService.getClinch($stateParams.clinchIndex);
@@ -26,7 +26,7 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
     $scope.$on('$ionicView.enter', function () {
         //console.log('In UserListController.on- Enter');
         //console.log('In UserListController.on- $scope.selectedClinch='+$scope.selectedClinch);
-        $ionicLoading.show({template: 'Loading...'});
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         var dimensions = {            
             // Define ranges to bucket data points into meaningful segments
             ClinchType: ''+$scope.selectedClinch.clinchTypeId,
@@ -52,6 +52,7 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
         function (error) {
             $ionicLoading.hide();
             console.log('In UserListController - Got error = ['+error.code+'] = '+error.message);
+            globalsService.showMessageByCode(1017);
             //alert(error.message);
             //to do - add error codes
             if (langService.getDirection() == "rtl"){
@@ -66,6 +67,30 @@ starter.controller("UserListController", function ($scope, $stateParams, $ionicH
     {
         $ionicHistory.goBack();
     };
+
+    $scope.doRefresh = function() {
+        //console.log('In clinchesController - doRefresh');
+        
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
+        clinchService.getUserListByClinch($stateParams.clinchIndex).then(function (result) {
+            //console.log('In clinchesController - Got result = '+result);
+            $scope.userListByClinch = result;
+        },
+        function (error) {
+           $ionicLoading.hide();
+            console.log('In UserListController - Got error = ['+error.code+'] = '+error.message);
+            globalsService.showMessageByCode(1017);
+            //alert(error.message);
+            //to do - add error codes
+            if (langService.getDirection() == "rtl"){
+                $state.go('rtl.cards');
+            }else{
+                $state.go('ltr.cards');
+            } 
+        });         
+        // Stop the ion-refresher from spinning
+        $ionicLoading.hide();
+      };
         
 
 });

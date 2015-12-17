@@ -5,35 +5,43 @@
             <img src="img/settings.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
+    <!--<ion-nav-buttons side="right">
         <button menu-toggle="right" class="button button-icon button-clear ">
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
+    </ion-nav-buttons>-->
+    <ion-nav-buttons side="right">
+        <button class="button-icon ion-arrow-right-c" ng-click="goBack()">            
+        </button>
     </ion-nav-buttons>
     <ion-content class="rtl">
-        <div class="list card">
-            <div class="item">
-                {{myClinch.type}}
+        <div class="card">
+            <div class="full-card">
+                {{selectedClinch.ruleTitle_he}}
             </div>
-            <!--div class="item clinch-image"-->
+            <!--div class="item item-image"-->
             <div class="item">
-                <img ng-src="img\{{myClinch.image}}" class="clinch-image">
+                <img ng-src="img\{{selectedClinch.clinchTypeImage}}" class="clinch-image">
             </div>
-
             <div class="item item-text-wrap">
-                {{myClinch.description}}
+                {{selectedClinch.longDescription_he}}
                 <br>
-                אם המשתמשת הוסיפה עוד מידע על עצמה והעסק שלה - הוא יופיע כאן.
             </div>
+            <div class="item item-text-wrap">
+                {{selectedClinch.ruleDescription_he}}
+                <br>
+            </div>
+            <!--div id="map" class="item" style="height:200px;" data-tap-disabled="true"></div-->
             <div class="item">
+                קלינץ עם: {{userClinch.fromUserBusinessName}}
                 <img id="theMap" class="static-map">
             </div>
-            <div class="item balanced">
-                <button class="button button-positive center-button">
-                    בקש את הקלינצ'
+            <div class="item" ng-if="!userClinch.isRequested && !userClinch.isAccepted">
+                <button class="button button-positive center-button" ng-click="requestClinch()">
+                    בקש את הקלינץ
                 </button>
             </div>
-        </div>
+        </div>        
     </ion-content>
 
 </ion-view>

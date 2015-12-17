@@ -9,23 +9,25 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-list class="rtl">
-            <ion-item ng-repeat="clinch in clinches" href="#/rtl/rtlclinches/{{clinch.id}}"
-                      class="item item-avatar-right">
-
-
-                <img ng-src="img\{{clinch.image}}">
-
-                <div class="item-middle">
-                    <h2>{{clinch.type}}</h2>
-
-            <span>
-שותף:
-                {{clinch.partnerName}}</span>
-                </div>
-                <img ng-src="img\professions\{{clinch.professionImage}}" class="user-image-right">
-            </ion-item>
+    <ion-content scrollbar-x="false">
+        <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
+        </ion-refresher>
+        <ion-list class="rtl" can-swipe="false">
+                <!--<ion-item class="change-item" ng-repeat ="clinch in clinches track by $index" href="#/ltr/clinches/{{clinch.$index}}">-->
+                <ion-item class="change-item" ng-repeat ="clinch in clinches" ui-sref="rtl.userslist({clinchIndex: $index})">
+                    <span ng-if="clinch.isClichAdmin" class="ribbon blue">
+                            א
+                    </span>
+                    <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-right">
+                    <!--<img ng-src ="img\logo.png" class="clinch-middle-logo">-->
+                    <!--<a class="ion-arrow-right-c">-->
+                    <div class="item-middle text-center">
+                        <h2>{{clinch.ruleTitle_he}}</h2>
+                        <!--<span>Partner with: {{clinch.partnerName}}</span>-->
+                    </div>  
+                    <img ng-if="clinch.fromAllProfessions == false" ng-src ="img\professions\{{clinch.professionImage}}" class="user-image-left">
+                    <label ng-if="clinch.fromAllProfessions == true" class="user-image-left">עם כל בעלי המקצוע</label>                
+                </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

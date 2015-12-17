@@ -33,7 +33,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
 
     if (typeof navigator.globalization === "undefined"){
           console.log('the navigator.globalization is not available and undefined.\nIt may be that you are using your browser for testing.\nSetting to English...'); // print into console
-          langService.setCurrentLanguage("en");
+          langService.setCurrentLanguage("he");
           globalsService.init();
           //langService.fillStrings();
           
@@ -45,20 +45,26 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                   //$state.go('ltr.clinches');
                   //console.log('In app.js Sending a reload request with FALSE...');
                   //clinchService.getClinches(false);
-                  $state.go('ltr.cards');
+                  if(!currentUser.get('Profession')){
+                    $state.go('rtl.profession');   
+                  }else if(!currentUser.get('location')){
+                    $state.go('rtl.location');
+                  }else{
+                    $state.go('rtl.cards');
+                  }
               } else {
-                  $state.go('ltr.login');
+                  $state.go('rtl.login');
               }
 
           }
           else
-              $state.go('ltr.intro');
+              $state.go('rtl.intro');
     } else {
             
           navigator.globalization.getPreferredLanguage(
               function (language, $stateProvider) {
 //alert('language.value='+language.value);
-                  /*if (language.value === "he-IL") {
+                  if (language.value === "he-IL") {
                       langService.setCurrentLanguage("he");
                       globalsService.init();
                       //langService.fillStrings();
@@ -69,7 +75,13 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                           if (currentUser) {
                               //$state.go('rtl.clinches');
                               //clinchService.getClinches(false);
-                              $state.go('rtl.cards');
+                              if(!currentUser.get('Profession')){
+                                $state.go('rtl.profession');   
+                              }else if(!currentUser.get('location')){
+                                $state.go('rtl.location');
+                              }else{
+                                $state.go('rtl.cards');
+                              }
                           } else {
                               $state.go('rtl.login');
                           }
@@ -78,7 +90,7 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                       else
                           $state.go('rtl.intro');
                   }
-                  else {*/
+                  else {
                       langService.setCurrentLanguage("en");
                       globalsService.init();
                       //langService.fillStrings();
@@ -92,7 +104,13 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                           if (currentUser) {
                               //$state.go('ltr.clinches');
                               //clinchService.getClinches(false);
-                              $state.go('ltr.cards');
+                              if(!currentUser.get('Profession')){
+                                $state.go('ltr.profession');   
+                              }else if(!currentUser.get('location')){
+                                $state.go('ltr.location');
+                              }else{
+                                $state.go('ltr.cards');
+                              }
                           } else {
                               $state.go('ltr.login');
                           }
@@ -102,10 +120,10 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
 //alert('Intro wasShown false');
                           $state.go('ltr.intro');
                       }
-                  //}
+                  }
               }, function () {
                   //alert('Error getting language\n');
-                  globalsService.showMessage(1000);
+                  globalsService.showMessageByCode(1000);
               });
             }
 
@@ -366,8 +384,18 @@ angular.module('starter', ['ionic', 'ngCordova','langModule','clinch','globalsMo
                     }
                 }
             })
+            .state('rtl.userslist', {
+                url: '/rtlclinches/:clinchIndex',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'rtlTemplates/rtlUsersList.html',
+                        controller: 'UserListController' //<- was this a typo or a placeholder to set new controller
+                    }
+                }
+            })
             .state('rtl.clinch', {
-                url: "/rtlclinches/:clinchId",
+                //url: "/rtlclinches/:clinchId",
+                url: "/rtlclinches/:clinchIndex/:userClinchIndex",
                 views: {
                     'menuContent': {
                         templateUrl: "rtlTemplates/rtlClinch.html",

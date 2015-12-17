@@ -10,20 +10,24 @@
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <div class="list card">
-            <div class="item rtl">
-                הגדרות א
-            </div>
-            <div class="item rtl">
-                הגדרות ב
-            </div>
-            <div class="item rtl">
-                הגדרות ג
-            </div>
-            <div class="item">
-                <button class="button button-positive center-button">
-                    שמור
+        <div class="list card rtl">
+            <div class="item item-button-left rtl">
+                <button class="button button-positive" ng-click="createNewClinchRule()">
+                    <i class="icon ion-arrow-left-b"></i>
                 </button>
+                צור הצעת קלינץ חדשה                
+            </div>
+            <div class="item item-button-left">
+                <button class="button button-positive">
+                    <i class="icon ion-arrow-left-b"></i>
+                </button>
+                צור הודעת מייל חדשה                
+            </div>
+            <div class="item item-button-left">
+                <button class="button button-positive">
+                    <i class="icon ion-arrow-left-b"></i>
+                </button>
+                צור הודעת שגיאה חדשה
             </div>
         </div>
     </ion-content>

@@ -6,27 +6,28 @@
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button menu-toggle="right" class="button button-icon button-clear ">
-            <img src="img/logo.png" class="small-menu-button-image">
+        <button class="button-icon ion-arrow-right-c" ng-click="goBack()">            
         </button>
     </ion-nav-buttons>
     <ion-content class="rtl">
-        <div class="list card">
+        <div class="list rtl card">
             <div class="item">
-                {{myClinch.type}}
+                {{myClinch.ruleTitle_he}}
             </div>
-            <!--div class="item clinch-image"-->
+            <!--div class="item item-image"-->
             <div class="item">
-                <img ng-src="img\{{myClinch.image}}" class="clinch-image">
+                <img ng-src="img\{{myClinch.clinchTypeImage}}" class="clinch-image">
             </div>
-
             <div class="item item-text-wrap">
-                {{myClinch.description}}
+                {{myClinch.longDescription_he}}
+            </div>
+            <div class="item item-text-wrap">
+                {{myClinch.ruleDescription_he}}
+                <br>
             </div>
             <div class="item">
                 <img id="theMap" class="static-map">
             </div>
-            <div class="item">
             <button class="button button-positive center-button">
                 אשר את הקלינץ'
             </button>
