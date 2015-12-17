@@ -13,7 +13,7 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
 
     //google.maps.event.addDomListener(window, 'load', function() {
     $scope.$on('$ionicView.enter', function(){
-        console.log('****In myRequestedClinchController - on = ');
+        //console.log('****In myRequestedClinchController - on = ');
         var url = "https://maps.googleapis.com/maps/api/staticmap";
         var location = "?center="+$scope.myClinch.fromUserLocation.latitude +","+$scope.myClinch.fromUserLocation.longitude;
         var zoom = "&zoom=15";
@@ -40,7 +40,7 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
     };
 
     $scope.acceptClinch = function(){
-        clinchService.acceptClinch($scope.clinchId).then(function (result) {
+        clinchService.acceptClinch(index).then(function (result) {
             globalsService.showMessageByCode(3004);
             $ionicHistory.goBack(); 
         }, function (error) {
@@ -51,7 +51,7 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
     }
 
     $scope.declineClinch = function(){
-        clinchService.declineClinch($scope.clinchId).then(function (result) {
+        clinchService.declineClinch(index).then(function (result) {
             globalsService.showMessageByCode(3005);
             $ionicHistory.goBack(); 
         }, function (error) {

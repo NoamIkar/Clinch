@@ -500,7 +500,8 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
         }
 
         theService.acceptClinch = function(clinchIndex){
-            var selectedClinch = theService.myRequestedClinches(clinchIndex);
+            //console.log('In clinchService clinchIndex = '+clinchIndex);
+            var selectedClinch = theService.myRequestedClinches[clinchIndex];
             var Clinch = Parse.Object.extend("Clinch");
             var clinch = new Parse.Query(Clinch);
             return clinch.get(selectedClinch.id).then( function (clinch) {
@@ -540,7 +541,7 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
         }
 
         theService.declineClinch = function(clinchIndex){
-            var selectedClinch = theService.myRequestedClinches(clinchIndex);
+            var selectedClinch = theService.myRequestedClinches[clinchIndex];
             var Clinch = Parse.Object.extend("Clinch");
             var clinch = new Parse.Query(Clinch);
             return clinch.get(selectedClinch.id).then( function (clinch) {
