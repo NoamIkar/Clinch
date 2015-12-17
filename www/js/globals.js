@@ -252,7 +252,7 @@ clinchModule.factory('globalsService', function (langService, $ionicPopup) {
                 var object = results[i];
                 var key = object.get('Code');
                 theService.errorMessagesMap[key] = {};                
-            console.log(object.id + ' - ' +key +' - '+ object.get('Title'));
+            //console.log(object.id + ' - ' +key +' - '+ object.get('Title'));
                 theService.errorMessagesMap[key].title = object.get('Title');
                 theService.errorMessagesMap[key].message  = object.get('Message');                
             }

@@ -13,6 +13,7 @@ var starter = angular.module('starter');
 starter.controller("settingsPageController", function ($scope, $state, globalsService, langService, $ionicLoading) {
 	$scope.isToAllPropessions = false;
 	$scope.isFromAllPropessions = false;
+    $scope.validateFromUserExists = true;
 	$scope.toProfession = {};
 	$scope.fromProfession = {};	
 	$scope.clinchRule = {};	
@@ -106,10 +107,11 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
 		console.log('In settingsPageController -> createClinchRule. clinchTypeId='+this.clinchTypeId);*/
 		//console.log('In settingsPageController -> createClinchRule. clinchType.='+globalsService.getClinchType(this.clinchTypeId));
 		//console.log('In settingsPageController -> createClinchRule. clinchType.name='+globalsService.getClinchType(this.clinchTypeId).name);
-        console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle='+$scope.ruleText.ruleTitle);
-        console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle_he='+$scope.ruleText.ruleTitle_he);
-        console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription='+$scope.ruleText.ruleDescription);
-        console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription_he='+$scope.ruleText.ruleDescription_he);
+        //console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle='+$scope.ruleText.ruleTitle);
+        //console.log('In settingsPageController -> createClinchRule. $scope.ruleTitle_he='+$scope.ruleText.ruleTitle_he);
+        //console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription='+$scope.ruleText.ruleDescription);
+        //console.log('In settingsPageController -> createClinchRule. $scope.ruleDescription_he='+$scope.ruleText.ruleDescription_he);
+        console.log('In settingsPageController -> createClinchRule. $scope.validateFromUserExists='+$scope.validateFromUserExists);
 
 		var ClinchRules = Parse.Object.extend("ClinchRules");
         var clinchRule = new ClinchRules();
@@ -175,6 +177,57 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
         }
         clinchRule.set("ClinchType", globalsService.getClinchType(this.clinchTypeId));        
 
+        //validate there is a user with this profession
+        var userQuery = new Parse.Query(Parse.User);
+        userQuery.notEqualTo('objectId',Parse.User.current().id);
+        var ProfessionObject = Parse.Object.extend('Profession');
+        //var fromProfessionObject = new ProfessionObject();
+        //fromProfessionObject.id = professionId;
+        userQuery.equalTo('Profession',tempFromProfession);
+
+        if(this.validateFromUserExists){
+            console.log('In settingsPageController -> createClinchRule. Going to validate');
+            userQuery.first().then(function (user){
+                    //continue  
+                    console.log('In settingsPageController -> createClinchRule. Found user:'+user);
+                    if(!user){
+                        var message = 'No User Found with this From Profession';
+                        return Parse.Promise.error({ "message": message, "code": 100 });               
+                    }
+                    //console.log('In settingsPageController -> createClinchRule. Found user:'+user.id);
+                    return clinchRule.save();  
+            }).then(function (clinchRule){
+                console.log('New Rule created with objectId: ' + clinchRule.id);
+                alert('New Rule created with objectId: ' + clinchRule.id);
+                
+            }, function(error) {
+                 // there was some error.
+                var message = 'Failed to create clinch rule. Error: '+error.code+' '+error.message;
+                console.log(message);
+                alert(message);
+                return;
+            });
+        }else{
+            clinchRule.save(null, {
+              success: function(clinchRule) {
+                // Execute any logic that should take place after the object is saved.
+                console.log('New Rule created with objectId: ' + clinchRule.id);
+                alert('New Rule created with objectId: ' + clinchRule.id);
+              },
+              error: function(clinchRule, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                alert('Failed to create new Rule, with error: ' +error.code +" - "+ error.message);
+              }
+            });
+        }
+        /*error: function(user, error) {
+                var message = 'No User exists with From Profession:'+tempFromProfession.get('professionName')+'.\nPlease change From profession';
+                console.log(message);
+                alert(message);
+                return;    
+            }
+
         clinchRule.save(null, {
           success: function(clinchRule) {
             // Execute any logic that should take place after the object is saved.
@@ -186,7 +239,7 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
             // error is a Parse.Error with an error code and message.
             alert('Failed to create new Rule, with error: ' +error.code +" - "+ error.message);
           }
-        });
+        });*/
     }
 
 });
