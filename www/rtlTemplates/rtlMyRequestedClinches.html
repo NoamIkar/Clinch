@@ -9,12 +9,12 @@
             <img src="img/logo.png" class="small-menu-button-image">
         </button>
     </ion-nav-buttons>
-    <ion-content>
+    <ion-content scrollbar-x="false">
         <ion-refresher pulling-text="משוך לעדכון..." on-refresh="doRefresh()" class="text-center">
         </ion-refresher>
         <h4  class="item-stacked-label text-center" ng-show="!myrequestedclinches.length || myrequestedclinches.length==0">לא נמצאו קלינצים</h4>
-        <ion-list class="rtl">
-            <ion-item ng-repeat="clinch in myrequestedclinches" href="#/rtl/rtlmyrequestedclinches/{{clinch.index}}" class="change-item">            
+        <ion-list class="rtl" can-swipe="false">
+            <ion-item class="change-item" ng-repeat="clinch in myrequestedclinches" href="#/rtl/rtlmyrequestedclinches/{{clinch.index}}">            
                 <img ng-src ="img\{{clinch.clinchTypeImage}}" class="clinch-right">
                 <div class="item-middle text-center">
                     <h2>{{clinch.ruleTitle_he}}</h2>
