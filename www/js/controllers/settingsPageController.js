@@ -10,7 +10,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("settingsPageController", function ($scope, $state, globalsService, langService, $ionicLoading) {
+starter.controller("settingsPageController", function ($scope, $state, globalsService, langService, $ionicLoading, $ionicHistory) {
 	$scope.isToAllPropessions = false;
 	$scope.isFromAllPropessions = false;
     $scope.validateFromUserExists = true;
@@ -43,6 +43,12 @@ starter.controller("settingsPageController", function ($scope, $state, globalsSe
 	        $ionicLoading.hide();
 	     }
     });
+
+    $scope.goBack = function()
+    {
+        $ionicHistory.goBack();
+        //$ionicHistory.backView();
+    };
 
 	$scope.createNewClinchRule = function(){        
         if (langService.getDirection() == "rtl"){        	

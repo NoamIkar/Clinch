@@ -16,11 +16,34 @@ starter.controller("loginController", function($scope, langService, $state, clin
         //$ionicHistory.clearHistory();
         $scope.userDetails = {};
         $scope.errorMessage = '';
+        $scope.userDetails.password = '';
+        $scope.userDetails.uname = '';
     });
     
     $scope.login = function()
     {
         //console.log('In loginController LOGIN...');
+        if(!$scope.userDetails.uname) {
+            $scope.errorMesage = globalsService.showMessageByCode(1018);
+            $scope.showError = true;
+            return;
+        }
+        if($scope.userDetails.uname.length < 4 || $scope.userDetails.uname.length > 30) {
+            $scope.errorMesage = globalsService.showMessageByCode(1019);
+            $scope.showError = true;
+            return;
+        }
+        if(!$scope.userDetails.password) {
+            $scope.errorMesage = globalsService.showMessageByCode(1020);
+            $scope.showError = true;
+            return;
+        }
+        if($scope.userDetails.password.length < 4 || $scope.userDetails.password.length > 16) {
+            $scope.errorMesage = globalsService.showMessageByCode(1021);
+            $scope.showError = true;
+            return;
+        }
+        
         $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         Parse.User.logIn($scope.userDetails.uname, $scope.userDetails.password, {
             success: function (user) {
