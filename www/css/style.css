@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-
+#map { height: 50%; }
 .login {
     background: url(../img/logo.png);
     background-repeat: no-repeat;

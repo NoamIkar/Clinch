@@ -62,8 +62,7 @@ starter.controller("locationController", function($scope, langService, clinchSer
             //center: new google.maps.LatLng(32.086697, 34.789748),
             zoom: 17,
             disableDefaultUI: true,
-            zoomControl: true,
-            language: language
+            zoomControl: true
         };
         
         map = new google.maps.Map(theDiv,mapOptions);
@@ -156,9 +155,11 @@ starter.controller("locationController", function($scope, langService, clinchSer
         //infoWindow = new google.maps.InfoWindow({map: map});
         //infoWindow.setPosition(pos);
         //infoWindow.setContent(browserHasGeolocation ?
-        alert(browserHasGeolocation ?
-                             globalsService.showMessageByCode(1006) :
-                             globalsService.showMessageByCode(1007));
+        if(browserHasGeolocation){
+            globalsService.showMessageByCode(1006);
+        }else{
+            globalsService.showMessageByCode(1007);
+        }
     }
 
     $scope.codeAddess = function () {
