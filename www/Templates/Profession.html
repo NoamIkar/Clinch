@@ -38,8 +38,10 @@
                         {{profession.professionName}}</a>
                 </div>
             </div>-->
-
-            <ion-slide-box delegate-handle="professionsSlide" show-pager="false">
+            <div class="item item-image">
+                <img ng-src="img/professions/{{currentProfession.imageFileName}}" class="clinch-middle-logo">
+            </div>
+            <!--<ion-slide-box delegate-handle="professionsSlide" show-pager="false">
                 <ion-slide ng-repeat="profession in professions | filter: filterImagesFunction | orderBy: 'professionName'">
                 <div>
                     <a ng-click="setSearchString(profession,$index)">
@@ -47,7 +49,7 @@
                     </a>
                 </div>
                 </ion-slide>
-            </ion-slide-box>
+            </ion-slide-box>-->
 
             <div class="item">
                 <button class="button button-positive center-button" ng-click="confirm()">

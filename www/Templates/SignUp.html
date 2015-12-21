@@ -10,7 +10,7 @@
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <!--<form name="myForm" ng-submit="signUp()" novalidate>-->
+        <form name="myForm" ng-submit="signUp()" novalidate>
             <div class="card">
                 <div class="item item-divider">
                     Please Register
@@ -74,11 +74,13 @@
                 </div>
             </div>
             <div class="item">
-                <!--<button class="button button-positive center-button" ng-disabled="myForm.$invalid" type="submit"> -->
-                <button class="button button-positive center-button" ng-click="signUp()">
+                <!--<button class="button button-positive center-button" ng-disabled="myForm.$invalid" type="submit">
+                <button class="button button-positive center-button" ng-click="signUp()">-->
+                <button class="button button-positive center-button" type="submit">
                     Register me
                 </button>
             </div>
-        <!--</form>-->
+            <p>Existing user ?<a ng-click="goLogin()" class="positive">Please Login</a></p>
+        </form>
     </ion-content>
 </ion-view>

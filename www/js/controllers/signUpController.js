@@ -110,4 +110,11 @@ starter.controller("signUpController", function ($scope, langService, $state, gl
             $state.go('ltr.profession');
     }
 
+    $scope.goLogin = function(){
+        if (langService.getDirection() == "rtl")
+            $state.go('rtl.login');
+        else
+            $state.go('ltr.login');
+    }
+
 });

@@ -99,8 +99,11 @@ clinchModule.factory('globalsService', function (langService, $ionicPopup) {
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
                 var roleInd = object.get('Role');
-                if(roleInd && roleInd == 'Admin' ){
-                    //console.log('Found Admin='+roleInd);       
+                //console.log('Found['+i+']='+roleInd);       
+                //if(roleInd && roleInd == 'Admin' ){
+                //Filter all professions which have any kind of role (also the Admin ones)
+                if(roleInd){
+                    //console.log('Found Role='+roleInd);       
                     continue;
                 }
 

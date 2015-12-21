@@ -1,10 +1,4 @@
 /* Empty. Add your own CSS if you like */
-ion-scroll[direction=x] {
-  width: 100vw;
-}
-ion-scroll[direction=y] {
-  height: 30vh;
-}
 
 .login {
     background: url(../img/logo.png);

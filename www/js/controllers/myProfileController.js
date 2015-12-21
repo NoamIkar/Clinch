@@ -18,13 +18,26 @@ starter.controller("myProfileController", function ($scope, langService, $state,
 	    $scope.toUserEmail = toUser.get('email');
 	    $scope.toUserBusinessName = toUser.get('BusinessName');
 	    var toUserLocation = toUser.get('location');
-	    $scope.professionImage = toUserProfession.get('imageFileName');
-	    $scope.professionName = toUserProfession.get('ProfessionName');
-        $scope.professionName_he = toUserProfession.get('ProfessionName_he');
+        $scope.professionImage = {};
+        $scope.professionName = {};
+        $scope.professionName_he = {};
+
+        if(toUserProfession){
+	       $scope.professionImage = toUserProfession.get('imageFileName');
+	       $scope.professionName = toUserProfession.get('ProfessionName');
+            $scope.professionName_he = toUserProfession.get('ProfessionName_he');
+        }
+
+        var location = "?center=31.4095827,35.0199809";
+        var zoom = "&zoom=8.25";
+        if(toUserLocation){
+            location = "?center="+toUserLocation.latitude +","+toUserLocation.longitude;
+            zoom = "&zoom=15";
+        }
 
         var url = "https://maps.googleapis.com/maps/api/staticmap";
-        var location = "?center="+toUserLocation.latitude +","+toUserLocation.longitude;
-        var zoom = "&zoom=15";
+        //var location = "?center="+toUserLocation.latitude +","+toUserLocation.longitude;
+        //var zoom = "&zoom=15";
         var size = "&size=300x160";
         var maptype = "&maptype=roadmap";
         var key = "&key=AIzaSyAWkXfBKSmL0YO5RRURIm6cfe4ouT8CJx8";

@@ -10,7 +10,7 @@
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <!--<form name="myForm" ng-submit="login()" novalidate>-->
+        <form name="myForm" ng-submit="login()" novalidate>
             <div class="card">
                 <div class="item item-divider">
                     Login please
@@ -55,13 +55,14 @@
                 <div class="form-error" ng-message="maxlength">This field is must be less than 50 characters</div>-->
             </div>
             <div class="item">
-                <!--<button class="button button-positive center-button" ng-disabled="myForm.$invalid" type="submit">-->
-                <button class="button button-positive center-button" ng-click="login()">
+                <!--<button class="button button-positive center-button" ng-disabled="myForm.$invalid" type="submit">
+                <button class="button button-positive center-button" ng-click="login()">-->
+                <button class="button button-positive center-button" type="submit">
                     OK
                 </button>
             </div>
             <p>New user ?<a ng-click="goSignUp()" class="positive">Please register</a></p>
-        <!--</form>-->
+        </form>
     </ion-content>
 </ion-view>
 
