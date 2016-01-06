@@ -16,7 +16,7 @@
             <ion-item ng-repeat="clinch in clinches" ui-sref="rtl.userslist({clinchIndex: $index})" ng-click="goUser()">
                 <div class="card rtl"> <!--ng-class="{done: clinchFromClinch.done}"-->
                     <div class="item item-divider">
-                        {{clinch.ruleTitle_he}}
+                        {{clinch.ruleTitle}}
                     </div>
                     <span ng-if="clinch.isClichAdmin" class="ribbon blue">
                             א
@@ -29,14 +29,14 @@
                     </div>
                     
                     <div class="item item-body padding">
-                        {{clinch.shortDescription_he}}
+                        {{clinch.shortDescription}}
                     </div>
                     <div class="item item-body padding">
-                        {{clinch.ruleDescription_he}}
+                        {{clinch.ruleToDescription}}
                     </div>
                     <div ng-if="clinch.fromAllProfessions == false" class="item item-text-wrap padding">
                         <!--You can clinch with: {{clinch.partnerName}}-->
-                        עם {{clinch.professionName_he}}
+                        עם {{clinch.professionName}}
                         <img ng-src ="img\professions\{{clinch.professionImage}}" class="clinch-image">
                     </div>
                     <div ng-if="clinch.fromAllProfessions == true" class="item item-text-wrap padding">

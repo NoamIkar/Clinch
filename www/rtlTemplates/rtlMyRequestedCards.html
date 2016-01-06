@@ -17,7 +17,7 @@
             <ion-item ng-repeat="clinch in myrequestedclinches" href="#/rtl/rtlmyrequestedclinches/{{clinch.index}}" class="change-item">            
                 <div class="card rtl padding">
                     <div class="item item-divider">
-                        {{clinch.ruleTitle_he}}
+                        {{clinch.ruleTitle}}
                     </div>
                     <!--<div class="item">
                         <img ng-src="img\{{clinch.image}}" class="clinch-image">
@@ -27,7 +27,7 @@
                     </div>
                     
                     <div class="item item-body padding">
-                        {{clinch.ruleDescription_he}}
+                        {{clinch.ruleFromDescription}}
                     </div>
                     <div class="item item-text-wrap padding">
                         קלינץ עם: {{clinch.fromUserBusinessName}}

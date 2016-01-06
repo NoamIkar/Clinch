@@ -6,7 +6,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("myRequestedClinchController", function($scope, $stateParams,  $ionicHistory, clinchService, langService, globalsService) {
+starter.controller("myRequestedClinchController", function($scope, $stateParams,  $ionicHistory, clinchService, langService, globalsService, $ionicLoading) {
     $scope.clinchId = $stateParams.clinchId;
     var index = parseInt($scope.clinchId);
     $scope.myClinch = clinchService.getRequestedClinch(index);
@@ -40,22 +40,28 @@ starter.controller("myRequestedClinchController", function($scope, $stateParams,
     };
 
     $scope.acceptClinch = function(){
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         clinchService.acceptClinch(index).then(function (result) {
-            globalsService.showMessageByCode(3004);
+            $ionicLoading.hide();
+            globalsService.showMessageByCode(3004);            
             $ionicHistory.goBack(); 
         }, function (error) {
             console.log('In myRequestedClinchesController - Got error = ['+error.code+'] = '+error.message);
+            $ionicLoading.hide();
             globalsService.showMessageByCode(1015);
         });
         //$scope.clinchesIRequested = clinchService.getClinchesIRequested();
     }
 
     $scope.declineClinch = function(){
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         clinchService.declineClinch(index).then(function (result) {
+            $ionicLoading.hide();
             globalsService.showMessageByCode(3005);
             $ionicHistory.goBack(); 
         }, function (error) {
             console.log('In myRequestedClinchesController - Got error = ['+error.code+'] = '+error.message);
+            $ionicLoading.hide();
             globalsService.showMessageByCode(1016);
         });
         //$scope.clinchesIRequested = clinchService.getClinchesIRequested();

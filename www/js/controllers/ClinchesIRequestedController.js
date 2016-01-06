@@ -7,7 +7,7 @@
 var starter = angular.module('starter');
 
 
-starter.controller("ClinchIRequestedController", function($scope, $stateParams, $ionicHistory, clinchService, langService, globalsService) {
+starter.controller("ClinchIRequestedController", function($scope, $stateParams, $ionicHistory, clinchService, langService, globalsService, $ionicLoading) {
     $scope.clinchId = $stateParams.clinchId;
     var index = parseInt($scope.clinchId);
     $scope.myClinch = clinchService.getMyClinch(index);
@@ -68,6 +68,7 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
         
         
         //After/Before? sending mail, create the clinch in the Clinch table
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         var Clinch = Parse.Object.extend("Clinch");
         var clinch = new Parse.Query(Clinch);
         //console.log('In $scope.myClinch.id = '+ $scope.myClinch.id);
@@ -83,10 +84,12 @@ starter.controller("ClinchIRequestedController", function($scope, $stateParams, 
             clinch.set("Status", "Canceled");
             clinch.save();
             //alert('Clinch was canceled');
-            globalsService.showMessageByCode(3006);
+            $ionicLoading.hide();
+            globalsService.showMessageByCode(3006);            
             $ionicHistory.goBack(); 
           },
           error: function(clinch, error) {
+            $ionicLoading.hide();
             globalsService.showMessageByCode(1014);
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.

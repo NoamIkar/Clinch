@@ -86,6 +86,7 @@ starter.controller("signUpController", function ($scope, langService, $state, gl
         user.set("password", $scope.userDetails.password);
         user.set("email", $scope.userDetails.email);
         user.set("BusinessName", $scope.userDetails.businessName);
+        user.set("Locale", langService.getCurrentLanguage());
 
         user.signUp(null, {
             success: function (user) {

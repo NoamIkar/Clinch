@@ -36,8 +36,10 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
 
         theService.getClinchesIRequested = function(){
             //console.log('In clinchService.getClinchesIRequested- Enter');
+            var params = {};                
+            params.locale = langService.getCurrentLanguage();
 
-            return Parse.Cloud.run('getClinchesIRequested', {}).then(
+            return Parse.Cloud.run('getClinchesIRequested', params).then(
                   function (result) {
                     theService.clinchesIRequested = result;
                     var successful = new Parse.Promise();
@@ -118,7 +120,10 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
 
         theService.getRequestedClinches = function(){
             //console.log('In clinchService.getRequestedClinches- Enter');
-            return Parse.Cloud.run('getRequestedClinches', {}).then(
+            var params = {};                
+            params.locale = langService.getCurrentLanguage();
+
+            return Parse.Cloud.run('getRequestedClinches', params).then(
                   function (result) {
                     theService.myRequestedClinches = result;
                     var successful = new Parse.Promise();
@@ -201,8 +206,10 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
             params.userLocation = userLocation;
             params.fromAllProfessions = fromAllProfessions;
             params.professionId = professionId;*/
+            var params = {};                
+            params.locale = langService.getCurrentLanguage();
 
-            return Parse.Cloud.run('getActiveClinches', {}).then(
+            return Parse.Cloud.run('getActiveClinches', params).then(
                   function (result) {
                     theService.myActiveClinches = result;
                     var successful = new Parse.Promise();
@@ -626,7 +633,10 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
             //console.log('In clinchService fetchClinches...going to run');
             var cloud = true;
             if(cloud){
-               return Parse.Cloud.run('fetchClinches', {}).then(
+                var params = {};                
+                params.locale = langService.getCurrentLanguage();
+
+               return Parse.Cloud.run('fetchClinches', params).then(
                   function (result) {
                     theService.clinches = result;
                     var successful = new Parse.Promise();

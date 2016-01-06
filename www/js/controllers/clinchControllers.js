@@ -56,12 +56,15 @@ starter.controller("clinchController", function ($scope, $stateParams, $ionicHis
     });
 
     $scope.requestClinch = function(){
+        $ionicLoading.show({template: globalsService.getLoadingTemplate()});
         clinchService.requestClinch($scope.clinchIndex, $scope.userClinchIndex).then(function (result) {    
-            clinchService.getUserByClinch($stateParams.userClinchIndex).isRequested = true;                
+            clinchService.getUserByClinch($stateParams.userClinchIndex).isRequested = true;   
+            $ionicLoading.hide();             
             $ionicHistory.goBack();            
         },
-        function (error) {
+        function (error) {            
             console.log('In clinchesController - Got error = ['+error.code+'] = '+error.message);
+            $ionicLoading.hide();
             //alert(error.message);
             switch(error.code){                
                 case 141:
@@ -215,6 +218,7 @@ starter.controller("clinchesController", function ($scope, $stateParams, clinchS
             $scope.clinches = result;
         },
         function (error) {
+            $ionicLoading.hide();
             //console.log('In clinchesController - Got error = '+error.message);
             //alert(error.message);
             handleError(error);
