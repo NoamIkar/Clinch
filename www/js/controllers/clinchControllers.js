@@ -15,7 +15,7 @@ var starter = angular.module('starter');
 //}
 
 
-starter.controller("clinchController", function ($scope, $stateParams, $ionicHistory, clinchService, langService, globalsService) {
+starter.controller("clinchController", function ($scope, $stateParams, $ionicHistory, clinchService, langService, globalsService, $ionicLoading) {
     
     $scope.userClinchIndex = $stateParams.userClinchIndex;
     $scope.userClinch = clinchService.getUserByClinch($stateParams.userClinchIndex);
