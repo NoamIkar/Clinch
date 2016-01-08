@@ -200,6 +200,7 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
 
             return theService.myRequestedClinches;*/
         }
+        
         theService.getActiveClinches = function(){
             //console.log('In clinchService.getActiveClinches- Enter');
             /*var params = {};                
@@ -224,41 +225,61 @@ clinchModule.factory('clinchService', function (langService, globalsService) {
                   }
             );
 
-            /*var toUser =  Parse.User.current();
+            /*var currentUser =  Parse.User.current();
             
             var Clinch = Parse.Object.extend("Clinch");
-            var myClinchQuery = new Parse.Query(Clinch);
-            //var mySecondClinchQuery = new Parse.Query(Clinch);
-            myClinchQuery.equalTo("ToUser",toUser);
-            myClinchQuery.equalTo("Status",'Accepted');
-            //mySecondClinchQuery.equalTo("FromUser",toUser);
-            //mySecondClinchQuery.equalTo("Status",'Accepted');
-            
-            //var query = Parse.Query.or(myClinchQuery,mySecondClinchQuery);
-            myClinchQuery.include('ClinchType');
-            myClinchQuery.include('ClinchRule');
-            myClinchQuery.include('FromUser');
-            myClinchQuery.include(['FromUser.Profession']);
-            //myClinchQuery.include(['FromUser.Profession.imageFileName']);
-            //myClinchQuery.include(['FromUser.Profession.ProfessionName']);
-            //myClinchQuery.include('ToUser');
 
-            //console.log('In clinchService.getActiveClinches- Enter .myActiveClinches='+.myActiveClinches.length);
-            myClinchQuery.find().then(function(myActiveClinchesR){
-                //console.log('In clinchService.getActiveClinches- Enter myActiveClinchesR='+myActiveClinchesR.length);
+            var myClinchQuery = new Parse.Query(Clinch);            
+            myClinchQuery.equalTo("ToUser",currentUser);
+            myClinchQuery.equalTo("Status",'Accepted');
+
+            var mySecondClinchQuery = new Parse.Query(Clinch);
+            mySecondClinchQuery.equalTo("FromUser",currentUser);
+            mySecondClinchQuery.equalTo("Status",'Accepted');
+            
+            
+            //myClinchQuery.include('ClinchType');
+            //myClinchQuery.include('ClinchRule');
+            //myClinchQuery.include('FromUser');
+            //myClinchQuery.include(['FromUser.Profession']);
+            
+            
+            //mySecondClinchQuery.include('ClinchType');
+            //mySecondClinchQuery.include('ClinchRule');
+            //mySecondClinchQuery.include('ToUser');
+            //mySecondClinchQuery.include(['ToUser.Profession']);
+            
+            
+            var query = Parse.Query.or(myClinchQuery,mySecondClinchQuery);
+            query.include('ClinchType');
+            query.include('ClinchRule');
+            query.include('FromUser');
+            query.include(['FromUser.Profession']);
+            query.include('ClinchType');
+            query.include('ClinchRule');
+            query.include('ToUser');
+            query.include(['ToUser.Profession']);
+            
+            return query.find(function(myActiveClinchesR){
                 for (var i = 0; i < myActiveClinchesR.length ; i++){
-                    var fromUser =  myActiveClinchesR[i].get("FromUser");
-                    var clinchType = myActiveClinchesR[i].get('ClinchType');                   
-                    var clinchRule = myActiveClinchesR[i].get('ClinchRule');
+                    var clinchEntry = myActiveClinchesR[i];
+                    console.log('In clinchService.getActiveClinches- clinch['+i+']='+clinchEntry.id+' date:'+clinchEntry.updatedAt);
+                    var fromUser =  clinchEntry.get("FromUser");
+                    var toUser =  clinchEntry.get("ToUser");
+                    var clinchType = clinchEntry.get('ClinchType');                   
+                    var clinchRule = clinchEntry.get('ClinchRule');
                     var clinch = buildCompleteClinch(toUser,fromUser,clinchType,clinchRule);
                     clinch.index = i;
-                    clinch.id = myActiveClinchesR[i].id;
+                    clinch.id = clinchEntry.id;
                     //tempArray.push(Clinch);
                     //theService.myActiveClinches[i] = {};
+                    
                     theService.myActiveClinches.push(clinch);
                 }  
-                //theService.myActiveClinches = myActiveClinches;
-                //console.log('In clinchService.getActiveClinches- Enter theService.myActiveClinches='+theService.myActiveClinches.length);
+                //theService.myActiveClinches = myActiveClinches;                
+            }).then(function(){
+                console.log('In clinchService.getActiveClinches- Enter theService.myActiveClinches='+theService.myActiveClinches.length);
+                return theService.myActiveClinches;    
             }, function (error){
                 console.log('In clinchService.getActiveClinches- Got Error:'+error);
             });
@@ -444,7 +465,7 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
                 
                 var params = {};                
                 params.messageCode = 2000;
-                params.fromUserBusinessName = userClinch.fromUserBusinessName;
+                params.otherUserBusinessName = userClinch.fromUserBusinessName;
                 params.currentUserBusinessName = currentUserBusinessName;
                 params.ruleTitle = selectedClinch.ruleTitle;
                 params.ruleTitle_he = selectedClinch.ruleTitle_he;
@@ -522,7 +543,7 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
                 
                 var params = {};                
                 params.messageCode = 2001;
-                params.fromUserBusinessName = selectedClinch.fromUserBusinessName;
+                params.otherUserBusinessName = selectedClinch.otherUserBusinessName;
                 params.currentUserBusinessName = currentUserBusinessName;
                 params.ruleTitle = selectedClinch.ruleTitle;
                 params.ruleTitle_he = selectedClinch.ruleTitle_he;
@@ -562,7 +583,7 @@ console.log('In clinchService.getClinchesByUserList- userUsers='+userUsers.lengt
                 
                 var params = {};                
                 params.messageCode = 2002;
-                params.fromUserBusinessName = selectedClinch.fromUserBusinessName;
+                params.otherUserBusinessName = selectedClinch.otherUserBusinessName;
                 params.currentUserBusinessName = currentUserBusinessName;
                 params.ruleTitle = selectedClinch.ruleTitle;
                 params.ruleTitle_he = selectedClinch.ruleTitle_he;
