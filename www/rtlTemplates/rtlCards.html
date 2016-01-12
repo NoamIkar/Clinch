@@ -15,7 +15,7 @@
         <ion-list can-swipe="false">
             <ion-item ng-repeat="clinch in clinches" ui-sref="rtl.userslist({clinchIndex: $index})" ng-click="goUser()">
                 <div class="card rtl"> <!--ng-class="{done: clinchFromClinch.done}"-->
-                    <div class="item item-divider">
+                    <div class="card-title">
                         {{clinch.ruleTitle}}
                     </div>
                     <span ng-if="clinch.isClichAdmin" class="ribbon blue">
